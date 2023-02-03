@@ -91,14 +91,14 @@ namespace SceneManagement
 
             m_Active = activate;
             
-            for (int i = 0; i < m_Sources.Count; i++)
-            {
-                var val = activate ? 1 : 0;
-                //fix here by playing sound elsewhere later
-                if(activate && SceneId != SceneId.BossOne)
-                    m_Sources[i].Play();
-                m_Sources[i].DOFade(val, 0.2f);
-            }
+            // for (int i = 0; i < m_Sources.Count; i++)
+            // {
+            //     var val = activate ? 1 : 0;
+            //     //fix here by playing sound elsewhere later
+            //     if(activate && SceneId != SceneId.BossOne)
+            //         m_Sources[i].Play();
+            //     m_Sources[i].DOFade(val, 0.2f);
+            // }
             
             if (!IsPermanent)
             {

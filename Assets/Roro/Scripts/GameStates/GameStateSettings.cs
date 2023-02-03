@@ -66,10 +66,7 @@ namespace GameStages
         {
             switch (evt.newScene)
             {
-                case SceneId.Hub:
-                    gameStateSettings.CurrentGameState = GameState.Hub;
-                    break;
-                case SceneId.Menu:
+                case SceneId.MainMenu:
                     gameStateSettings.CurrentGameState = GameState.Menu;
                     break;
                 default:

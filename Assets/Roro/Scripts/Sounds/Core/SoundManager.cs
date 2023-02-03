@@ -14,9 +14,9 @@ using Utility;
 
 namespace Roro.Scripts.Sounds.Core
 {
-	[DefaultExecutionOrder(ExecOrder.SoundManager)]
+	//[DefaultExecutionOrder(ExecOrder.SoundManager)]
 	[RequireComponent(typeof(AudioSource))]
-	public class SoundManager : SingletonBehaviour<SoundManager>
+	public class SoundManager : MonoBehaviour
 	{
 		
 		[SerializeField]
@@ -26,7 +26,7 @@ namespace Roro.Scripts.Sounds.Core
 
 		private List<AudioSource> m_AudioSources => GetComponents<AudioSource>().ToList();
 
-		private int m_SourceIndex;
+		private int m_SourceIndex = 0;
 		private int m_LoopSourceIndex = 0;
 
 		private int m_AvailableSourceCount;
@@ -35,9 +35,6 @@ namespace Roro.Scripts.Sounds.Core
 
 		private void Awake()
 		{
-			if(!SetupInstance(false))
-				return;
-			
 			//m_SoundsDisabled = Var.Get<BoolVariable>("SFXDisabled");
 
 			m_SourceIndex = 0;
@@ -103,16 +100,16 @@ namespace Roro.Scripts.Sounds.Core
 		public void Reset()
 		{
 			Debug.Log("Reset");
-			
-			m_AudioSources.ForEach(source =>
-			{
-				if (source.isPlaying)
-				{
-					source.DOFade(0, 0.1f).OnComplete(() =>source.loop = false);
-				}
-
-				m_AvailableSourceCount = m_AudioSources.Count;
-			});
+			//
+			// m_AudioSources.ForEach(source =>
+			// {
+			// 	if (source.isPlaying)
+			// 	{
+			// 		source.DOFade(0, 0.1f).OnComplete(() =>source.loop = false);
+			// 	}
+			//
+			// 	m_AvailableSourceCount = m_AudioSources.Count;
+			// });
 		}
 
 		public void PlayOneShot(Sound sound, float volume = 1f, float pitch = 1f)
@@ -122,12 +119,14 @@ namespace Roro.Scripts.Sounds.Core
 			
 			if (!sound || !sound.Clip || sound.Volume < 1e-2f)
 			{
-				//Debug.Log($"Ignoring sound {sound.name}");
+				Debug.Log($"Ignoring sound {sound.name}");
 				return;
 			}
 
 			var src = GetSource();
 			src.PlayOneShot(sound, volume, pitch);
+			
+			Debug.Log("bbb");
 		}
 		public void PlayLoop(Sound sound, float volume = 1f, float pitch = 1f)
 		{
@@ -136,11 +135,10 @@ namespace Roro.Scripts.Sounds.Core
 			
 			if (!sound || !sound.Clip || sound.Volume < 1e-2f)
 			{
-				//Debug.Log($"Ignoring sound {sound.name}");
+				Debug.Log($"Ignoring sound {sound.name}");
 				return;
 			}
 
-			Debug.Log("EEEE");
 			var src = GetLoopSource();
 			src.PlayOneShot(sound, volume, pitch);
 		}
