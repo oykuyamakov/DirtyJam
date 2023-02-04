@@ -126,7 +126,6 @@ namespace Roro.Scripts.Sounds.Core
 			var src = GetSource();
 			src.PlayOneShot(sound, volume, pitch);
 			
-			Debug.Log("bbb");
 		}
 		public void PlayLoop(Sound sound, float volume = 1f, float pitch = 1f)
 		{

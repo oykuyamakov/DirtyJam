@@ -17,38 +17,46 @@ namespace SoundManagement
         public Sound m_WD;
         public Sound m_SA;
         public Sound m_SD;
+
+        private Dictionary<DirectionName, Sound> m_SoundsOnDir = new Dictionary<DirectionName, Sound>();
         
         public Sound GetSound(DirectionName directionName)
         {
-            switch (directionName)
+            if (m_SoundsOnDir.TryGetValue(directionName, out var sound))
             {
-                case DirectionName.W:
-                    return m_W;
-                    break;
-                case DirectionName.A:
-                    return m_A;
-                    break;
-                case DirectionName.S:
-                    return m_S;
-                    break;
-                case DirectionName.D:
-                    return m_D;
-                    break;
-                case DirectionName.WA:
-                    return m_WA;
-                    break;
-                case DirectionName.WD:
-                    return m_WD;
-                    break;
-                case DirectionName.SA:
-                    return m_SA;
-                    break;
-                case DirectionName.SD:
-                    return m_SD;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(directionName), directionName, null);
+                return sound;
             }
+            else
+            {
+                m_SoundsOnDir = new Dictionary<DirectionName, Sound>()
+                {
+                    [DirectionName.S] = m_S,
+                    [DirectionName.D] = m_D,
+                    [DirectionName.W] = m_W,
+                    [DirectionName.A] = m_A,
+                    [DirectionName.W & DirectionName.A] = m_WA,
+                    [DirectionName.W & DirectionName.D] = m_WD,
+                    [DirectionName.S & DirectionName.A] = m_SA,
+                    [DirectionName.S & DirectionName.D] = m_SD
+                };
+
+                return m_SoundsOnDir[directionName];
+            }
+        }
+        
+        private void Awake()
+        {
+            m_SoundsOnDir = new Dictionary<DirectionName, Sound>()
+            {
+                [DirectionName.S] = m_S,
+                [DirectionName.D] = m_D,
+                [DirectionName.W] = m_W,
+                [DirectionName.A] = m_A,
+                [DirectionName.W & DirectionName.A] = m_WA,
+                [DirectionName.W & DirectionName.D] = m_WD,
+                [DirectionName.S & DirectionName.A] = m_SA,
+                [DirectionName.S & DirectionName.D] = m_SD
+            };
         }
     }
 }

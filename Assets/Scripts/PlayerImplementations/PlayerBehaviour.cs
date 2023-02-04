@@ -19,61 +19,61 @@ namespace PlayerImplementations
             [DirectionName.D] = 90,
             [DirectionName.W] = 180,
             [DirectionName.A] = 270,
-            [DirectionName.WA] = 225,
-            [DirectionName.WD] = 135,
-            [DirectionName.SA] = 315,
-            [DirectionName.SD] = 45
+            [DirectionName.W & DirectionName.A] = 225,
+            [DirectionName.W & DirectionName.D] = 135,
+            [DirectionName.S & DirectionName.A] = 315,
+            [DirectionName.S & DirectionName.D] = 45,
+            [DirectionName.S & DirectionName.A] = 0,
+            [DirectionName.W & DirectionName.D] = 180,
         };
-
+        
         private void Update()
         {
+
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                m_CurrentDirection &= ~DirectionName.S;
+            } 
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                m_CurrentDirection &= ~DirectionName.W;
+            }
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                m_CurrentDirection &= ~DirectionName.D;
+            } 
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                m_CurrentDirection &= ~DirectionName.A;
+            }
+
+
             if (Input.GetKeyDown(KeyCode.S))
             {
-                m_CurrentDirection = DirectionName.S;
+                m_CurrentDirection |= DirectionName.S;
                 Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                m_CurrentDirection = DirectionName.D;
+                m_CurrentDirection |= DirectionName.D;
                 Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                m_CurrentDirection = DirectionName.W;
+                m_CurrentDirection |= DirectionName.W;
                 Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.A))
             {
-                m_CurrentDirection = DirectionName.A;
+                m_CurrentDirection |= DirectionName.A;
                 Attack(m_CurrentDirection);
             }
 
-            if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.A))
-            {
-                m_CurrentDirection = DirectionName.SA;
-                Attack(m_CurrentDirection);
-            }
-
-            if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.D))
-            {
-                m_CurrentDirection = DirectionName.SD;
-                Attack(m_CurrentDirection);
-            }
-
-            if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.A))
-            {
-                m_CurrentDirection = DirectionName.WA;
-                Attack(m_CurrentDirection);
-            }
-
-            if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.D))
-            {
-                m_CurrentDirection = DirectionName.WD;
-                Attack(m_CurrentDirection);
-            }
+            Debug.Log(m_CurrentDirection);
+            
         }
 
         private void Attack(DirectionName directionName)

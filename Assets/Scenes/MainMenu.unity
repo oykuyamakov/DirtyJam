@@ -328,7 +328,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  m_InitialScene: 0
+  m_InitialScene: 64
   debug: 0
 --- !u!1 &1752310690 stripped
 GameObject:

@@ -23,13 +23,22 @@ namespace LevelManagement
             {
                 using var evtSound = SoundPlayEvent.Get(m_CurrentSoundBundle.GetSound(evt.AttackDirection));
                 evtSound.SendGlobal();
-                Debug.Log("aaaa");
             }
             else
             {
                 using var evtSound = SoundPlayEvent.Get(m_CurrentLevelDataBundle.BadSound);
                 evtSound.SendGlobal();
             }
+        }
+
+        private void OnWin()
+        {
+            
+        }
+
+        private void OnLoose()
+        {
+            
         }
     }
 }
