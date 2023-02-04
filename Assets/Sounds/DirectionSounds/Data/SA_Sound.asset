@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SA_Sound
   m_EditorClassIdentifier: 
   m_AudioClip: {fileID: 8300000, guid: fe6c70365fa9d0849a8efc3cfa801865, type: 3}
-  m_Volume: 0.75
+  m_Volume: 1
   m_Pitch: 1
   m_Loop: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SD_Sound
   m_EditorClassIdentifier: 
   m_AudioClip: {fileID: 8300000, guid: ebd8958d819bb064e8cee5b56e388efa, type: 3}
-  m_Volume: 0.75
+  m_Volume: 1
   m_Pitch: 1
   m_Loop: 0

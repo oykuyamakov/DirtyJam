@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WD_Sound
   m_EditorClassIdentifier: 
   m_AudioClip: {fileID: 8300000, guid: 6d520839b7deb4c459ba85fd74cf2c18, type: 3}
-  m_Volume: 0.75
+  m_Volume: 1
   m_Pitch: 1
   m_Loop: 0
