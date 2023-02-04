@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DirectionImplementation;
 using Events;
 using PlayerImplementations.EventImplementations;
+using UnityCommon.Runtime.Utility;
 using UnityEngine;
 
 namespace PlayerImplementations
@@ -11,15 +12,15 @@ namespace PlayerImplementations
     {
         [SerializeField] 
         private PlayerData m_PlayerData;
+        private Animator m_Animator => GetComponent<Animator>();
         
         private DirectionName m_CurrentDirection;
+        
+        private static readonly int Attack1 = Animator.StringToHash("Attack");
 
-        private void Awake()
-        {
-            m_PlayerData.Initialize();
-        }
-
-        private Dictionary<DirectionName, float> m_RotOnDir = new Dictionary<DirectionName, float>()
+        private TimedAction m_GetInputAction;
+        
+        private Dictionary<DirectionName, float> m_RotOnDir = new()
         {
             [DirectionName.S] = 0,
             [DirectionName.D] = 90,
@@ -31,85 +32,108 @@ namespace PlayerImplementations
             [DirectionName.S | DirectionName.D] = 45,
         };
         
+        private void Awake()
+        {
+            m_GetInputAction = new TimedAction(GetInput, 0, 0.082f);
+            
+            m_PlayerData.Initialize();
+        }
+
+        private bool Attacked;
+
+        private void GetInput()
+        {
+            
+            if (Attacked)
+            {
+                Attack(m_CurrentDirection);
+                Debug.Log("attacked");
+                Attacked = false;
+            }
+        }
         private void Update()
         {
-
             if (Input.GetKeyUp(KeyCode.S))
             {
                 m_CurrentDirection &= ~DirectionName.S;
-                //Attack(m_CurrentDirection);
             } 
             if (Input.GetKeyUp(KeyCode.W))
             {
                 m_CurrentDirection &= ~DirectionName.W;
-                //Attack(m_CurrentDirection);
             }
             if (Input.GetKeyUp(KeyCode.D))
             {
                 m_CurrentDirection &= ~DirectionName.D;
-                //Attack(m_CurrentDirection);
             } 
             if (Input.GetKeyUp(KeyCode.A))
             {
                 m_CurrentDirection &= ~DirectionName.A;
-                //Attack(m_CurrentDirection);
             }
 
 
             if (Input.GetKeyDown(KeyCode.S))
             {
                 m_CurrentDirection |= DirectionName.S;
-                Attack(m_CurrentDirection);
+                Attacked = true;
+                //Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
                 m_CurrentDirection |= DirectionName.D;
-                Attack(m_CurrentDirection);
+                Attacked = true;
+
+                //Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
                 m_CurrentDirection |= DirectionName.W;
-                Attack(m_CurrentDirection);
+                Attacked = true;
+
+                //Attack(m_CurrentDirection);
             }
 
             if (Input.GetKeyDown(KeyCode.A))
             {
                 m_CurrentDirection |= DirectionName.A;
-                Attack(m_CurrentDirection);
+                Attacked = true;
+
+                //Attack(m_CurrentDirection);
             }
+
+            
+            
+            m_GetInputAction.Update(Time.deltaTime);
         }
 
         private void Attack(DirectionName directionName)
         {
             if (m_CurrentDirection == 0)
-            {
-                Debug.Log("kalktilann");
                 return;
-            }
-
-            if ((m_CurrentDirection & (DirectionName.D | DirectionName.A)) == (DirectionName.D | DirectionName.A))
-            {
-                Debug.Log("D A");
-                return;
-            }
-            if ((m_CurrentDirection & (DirectionName.S | DirectionName.W)) == (DirectionName.S | DirectionName.W))
-            {
-                Debug.Log("w s");
-                return;
-            }
             
-            if ((m_CurrentDirection & (DirectionName.W | DirectionName.A | DirectionName.D)) == (DirectionName.W | DirectionName.A | DirectionName.D))
+            if ((m_CurrentDirection & (DirectionName.D | DirectionName.A)) 
+                == (DirectionName.D | DirectionName.A))
+                return;
+            
+            if ((m_CurrentDirection & (DirectionName.S | DirectionName.W)) 
+                == (DirectionName.S | DirectionName.W))
+                return;
+            
+            if ((m_CurrentDirection & (DirectionName.W | DirectionName.A | DirectionName.D)) 
+                == (DirectionName.W | DirectionName.A | DirectionName.D))
             {
                 m_CurrentDirection = DirectionName.W;
-                Debug.Log("threesome");
             }
-            if ((m_CurrentDirection & (DirectionName.S | DirectionName.A | DirectionName.D)) == (DirectionName.S | DirectionName.A | DirectionName.D))
+            if ((m_CurrentDirection & (DirectionName.S | DirectionName.A | DirectionName.D)) 
+                == (DirectionName.S | DirectionName.A | DirectionName.D))
             {
                 m_CurrentDirection = DirectionName.S;
-                Debug.Log("threesome 2");
             }
+            
+            Debug.Log("Attacked with direction: " + m_CurrentDirection + "");
+            
+            m_Animator.SetTrigger(Attack1);
             
             transform.rotation = Quaternion.Euler(0, 0, m_RotOnDir[m_CurrentDirection]);
             using var evt = AttackEvent.Get(directionName);
