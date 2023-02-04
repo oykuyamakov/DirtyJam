@@ -21,8 +21,13 @@ namespace LevelManagement
         {
             if (evt.Success)
             {
-                using var evtSound = SoundPlayEvent.Get(m_CurrentSoundBundle.GetSound(evt.AttackDirection));
-                evtSound.SendGlobal();
+                var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+
+                foreach (var sound in sounds)
+                {
+                    using var evtSound = SoundPlayEvent.Get(sound);
+                    evtSound.SendGlobal();
+                }
             }
             else
             {
