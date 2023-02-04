@@ -16,15 +16,14 @@ namespace BeatStuff
         private float m_MoveAmount = 1.15f;
 
         [SerializeField]
-        private float m_SpeedFactor = 5f;
+        private float m_SpeedFactor = 10f;
         
         private Vector3 m_MovePos;
         
-        private void Start()
+        public void Initialize()
         {
-           m_MovePos = transform.localPosition;
-           
-           GEM.AddListener<OnBeatEvent>(OnBeat);
+            m_MovePos = transform.localPosition;
+            GEM.AddListener<OnBeatEvent>(OnBeat);
         }
 
         private void OnBeat(OnBeatEvent evt)
@@ -43,6 +42,11 @@ namespace BeatStuff
         public void Move()
         {
             m_MovePos += MoveDir * m_MoveAmount;
+        }
+
+        public void ResetData()
+        {
+            GEM.RemoveListener<OnBeatEvent>(OnBeat);
         }
     }
 }

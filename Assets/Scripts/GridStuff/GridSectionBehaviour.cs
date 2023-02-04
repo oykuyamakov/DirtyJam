@@ -3,6 +3,7 @@ using BeatStuff;
 using DirectionImplementation;
 using Events;
 using PlayerImplementations.EventImplementations;
+using RootStuff;
 using UnityCommon.Modules;
 using UnityEngine;
 
@@ -54,7 +55,10 @@ namespace GridStuff
                 Conditional.WaitFrames(1)
                     .Do(() =>
                     {
-                        m_EnteredObject?.SetActive(false);
+                        if(m_EnteredObject == null)
+                            return;
+                        
+                        RootManager.RootPool.ReleasePoolable(m_EnteredObject.GetComponent<Root>());
                     });
             }
         }
