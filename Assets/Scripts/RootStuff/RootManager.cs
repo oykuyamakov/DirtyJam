@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using BeatStuff;
+using BeatStuff.EventImplementations;
 using DirectionImplementation;
+using Events;
 using Pooling;
 using RootStuff;
 using Sirenix.OdinInspector;
@@ -17,7 +19,7 @@ public class RootManager : MonoBehaviour
     [SerializeField]
     private Transform[] m_SpawnPoints = new Transform[8];
 
-    private ObjectPool<Root> m_RootPool = new ObjectPool<Root>(50);
+    public static ObjectPool<Root> RootPool = new ObjectPool<Root>(50);
 
     private Dictionary<DirectionName, Vector3> m_SpawnPositionDictionary;
 
@@ -51,24 +53,29 @@ public class RootManager : MonoBehaviour
             [DirectionName.S | DirectionName.D] = new Vector3(1, -1, 0),
         };
 
-        m_RandomSpawnAction = new TimedAction(RandomlySpawnRoots, 0f, 1f);
+        // m_RandomSpawnAction = new TimedAction(RandomlySpawnRoots, 0f, 1f);
+        GEM.AddListener<OnBeatEvent>(OnBeat);
     }
 
     private void Update()
     {
-        m_RandomSpawnAction.Update(Time.deltaTime);
+        // m_RandomSpawnAction.Update(Time.deltaTime);
     }
 
     [Button]
     public void SpawnRoot(DirectionName directionName)
     {
-        var root = m_RootPool.GetPoolable(m_RootPrefab, null).Get();
+        var root = RootPool.GetPoolable(m_RootPrefab, null).Get();
         root.transform.position = m_SpawnPositionDictionary[directionName];
         
         var moveToTheBeat = root.GetComponent<MoveToTheBeat>();
         moveToTheBeat.Steps = 1f;
         moveToTheBeat.DirectionName = directionName;
         moveToTheBeat.MoveDir = m_SpawnDirectionDictionary[directionName];
+        
+        root.transform.rotation = 
+        
+        root.Init();
     }
 
     private void RandomlySpawnRoots()
@@ -76,5 +83,13 @@ public class RootManager : MonoBehaviour
         var values = (DirectionName[])Enum.GetValues(typeof(DirectionName));
         DirectionName randomValue = (DirectionName) values[Random.Range(0, values.Length)];
         SpawnRoot(randomValue);
+    }
+
+    private void OnBeat(OnBeatEvent evt)
+    {
+        if(evt.Steps != 0.25f)
+            return;
+        
+        RandomlySpawnRoots();
     }
 }

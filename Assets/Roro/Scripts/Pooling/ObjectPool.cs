@@ -43,7 +43,7 @@ namespace Pooling
             {
                 Pool.Enqueue(obj);
                 // count++;
-                //obj.Return();
+                obj.Return();
             }
             else
             {

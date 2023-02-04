@@ -172,4 +172,4 @@ MonoBehaviour:
   DirectionName: 0
   MoveDir: {x: 0, y: 0, z: 0}
   m_MoveAmount: -1.15
-  m_SpeedFactor: 1
+  m_SpeedFactor: 10
