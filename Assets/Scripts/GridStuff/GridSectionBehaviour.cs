@@ -1,5 +1,6 @@
 using System;
 using BeatStuff;
+using DG.Tweening;
 using DirectionImplementation;
 using Events;
 using PlayerImplementations.EventImplementations;
@@ -29,7 +30,7 @@ namespace GridStuff
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            m_SpriteRenderer.color = Color.yellow;
+            // m_SpriteRenderer.color = Color.yellow;
 
             m_Entered = true;
             m_EnteredDirectionName = other.GetComponent<MoveToTheBeat>().DirectionName;
@@ -51,7 +52,12 @@ namespace GridStuff
             if ((evt.AttackDirection & m_EnteredDirectionName) == m_EnteredDirectionName)
             {
                 evt.Success = true;
-
+                m_SpriteRenderer.DOFade(0.5f, 0.2f).SetLoops(3, LoopType.Yoyo)
+                    .OnComplete(() =>
+                    {
+                        m_SpriteRenderer.DOFade(0f, 0.05f);
+                    });
+                
                 Conditional.WaitFrames(1)
                     .Do(() =>
                     {

@@ -202,8 +202,8 @@ MonoBehaviour:
   Steps: 1
   DirectionName: 0
   MoveDir: {x: 0, y: 0, z: 0}
-  m_MoveAmount: -0.15
-  m_SpeedFactor: 1
+  m_MoveAmount: -1.15
+  m_SpeedFactor: 5
 --- !u!114 &6516770908951689066
 MonoBehaviour:
   m_ObjectHideFlags: 0

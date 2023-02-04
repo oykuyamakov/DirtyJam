@@ -72,8 +72,22 @@ public class RootManager : MonoBehaviour
         moveToTheBeat.Steps = 1f;
         moveToTheBeat.DirectionName = directionName;
         moveToTheBeat.MoveDir = m_SpawnDirectionDictionary[directionName];
-        
-        // root.transform.rotation = 
+
+        switch (directionName)
+        {
+            case DirectionName.A:
+                root.transform.rotation = Quaternion.Euler(180, 0, 0);
+                break;
+            case DirectionName.D:
+                root.transform.rotation = Quaternion.Euler(180, 0, 180);
+                break;
+            case DirectionName.S:
+                root.transform.rotation = Quaternion.Euler(180, 0, -90);
+                break;
+            case DirectionName.W:
+                root.transform.rotation = Quaternion.Euler(180, 0, 90);
+                break;
+        }
         
         root.Init();
     }
