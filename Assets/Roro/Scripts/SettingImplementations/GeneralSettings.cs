@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using LevelManagement;
 using SceneManagement;
+using Sounds;
 using UnityCommon.Variables;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace SettingImplementations
 
         //public string InitialSaveName;
 
+        public Sound m_UISelect;
+        
         public float SceneTransitionDuration = 2f;
         
         public float IntroWaitDuration = 2f;

@@ -48,7 +48,7 @@ namespace GridStuff
         
         private void OnAttack(AttackEvent evt)
         {
-            if ((evt.AttackDirection & m_EnteredDirectionName) == m_EnteredDirectionName)
+            if ((evt.AttackDirection | m_EnteredDirectionName) == m_EnteredDirectionName)
             {
                 evt.Success = true;
 

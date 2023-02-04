@@ -112,8 +112,6 @@ namespace Roro.Scripts.Helpers
 
 			yield return new WaitForSeconds(GeneralSettings.Get().IntroWaitDuration);
 		
-			var sceneTransitionManager = FindObjectOfType<SceneTransitionManager>();
-			sceneTransitionManager.OnAllScenesLoaded();
 		
 			yield return null;
 			yield return null;
