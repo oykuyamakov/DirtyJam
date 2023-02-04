@@ -32,12 +32,29 @@ namespace PlayerImplementations
             using var looseEvent = EventImplementations.LooseEvent.Get();
             looseEvent.SendGlobal();
         }
-        
-        public void OnGetDamage(float damage)
+
+        public void GetDamage(float damage)
         {
-            CurrentHealth.Change(-damage);
+            var oldValue = CurrentHealth.CurrentValue;
+            var newVal = CurrentHealth.CurrentValue  - Mathf.Abs(damage);
+            CurrentHealth.Change(newVal);
             using var evt = SoundPlayEvent.Get(GetHitSound);
             evt.SendGlobal();
+            
+            using var evtChange = EventImplementations.PlayerHealthChangeEvent.Get(oldValue, CurrentHealth.CurrentValue);
+            evtChange.SendGlobal();
+        }
+
+        public void OnHeal(float heal)
+        {
+            var oldValue = CurrentHealth.CurrentValue;
+            var newVal = CurrentHealth.CurrentValue  + Mathf.Abs(heal);
+            CurrentHealth.Change(newVal);
+            using var evt = SoundPlayEvent.Get(GetHitSound);
+            evt.SendGlobal();
+            
+            using var evtChange = EventImplementations.PlayerHealthChangeEvent.Get(oldValue, CurrentHealth.CurrentValue);
+            evtChange.SendGlobal();
         }
     }
 }
