@@ -8,11 +8,10 @@ namespace PlayerImplementations.EventImplementations
     {
         public DirectionName AttackDirection;
         public bool Success;
-        public static AttackEvent Get(DirectionName attackDirection, bool success)
+        public static AttackEvent Get(DirectionName attackDirection)
         {
             var evt = GetPooledInternal();
             evt.AttackDirection = attackDirection;
-            evt.Success = success;
             return evt;
         }
     }

@@ -79,7 +79,7 @@ namespace PlayerImplementations
         private void Attack(DirectionName directionName)
         {
             transform.rotation = Quaternion.Euler(0, 0, m_RotOnDir[m_CurrentDirection]);
-            using var evt = AttackEvent.Get(directionName, true);
+            using var evt = AttackEvent.Get(directionName);
             evt.SendGlobal();
         }
     }

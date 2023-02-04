@@ -1,9 +1,17 @@
+using BeatStuff.EventImplementations;
+using DirectionImplementation;
+using Events;
 using UnityEngine;
 
 namespace BeatStuff
 {
     public class MoveToTheBeat : MonoBehaviour
     {
+        public float Steps = 1f;
+
+        public DirectionName DirectionName;
+        public Vector3 MoveDir;
+        
         [SerializeField]
         private float m_MoveAmount = 1.15f;
 
@@ -11,10 +19,20 @@ namespace BeatStuff
         private float m_SpeedFactor = 5f;
         
         private Vector3 m_MovePos;
-
+        
         private void Start()
         {
            m_MovePos = transform.localPosition;
+           
+           GEM.AddListener<OnBeatEvent>(OnBeat);
+        }
+
+        private void OnBeat(OnBeatEvent evt)
+        {
+            if (evt.Steps == Steps)
+            {
+                Move();
+            }
         }
 
         private void Update()
@@ -24,7 +42,7 @@ namespace BeatStuff
 
         public void Move()
         {
-            m_MovePos += Vector3.right * m_MoveAmount;
+            m_MovePos += MoveDir * m_MoveAmount;
         }
     }
 }

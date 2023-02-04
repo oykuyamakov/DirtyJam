@@ -1,4 +1,6 @@
 using System;
+using BeatStuff.EventImplementations;
+using Events;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,6 +51,8 @@ namespace BeatStuff
         
             m_LastInterval = Mathf.FloorToInt(interval);
             m_Trigger.Invoke();
+
+            using var evt = OnBeatEvent.Get(m_Steps).SendGlobal();
         }
     }
 }
