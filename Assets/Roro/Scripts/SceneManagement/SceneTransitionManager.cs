@@ -18,15 +18,11 @@ namespace SceneManagement
     [System.Serializable]
     public enum SceneId
     {
-        None = 0,
-        Intro = 1,
-        Menu = 2,
+        MainMenu = 0,
+        Game = 2,
         Shared = 4,
-        Hub = 16,
-        BossOne = 32,
         Loading = 64,
-        SideMissionOne = 128,
-        CombatShared = 256,
+        None = 128,
     }
 
     public static class SceneExtensions
@@ -52,7 +48,7 @@ namespace SceneManagement
     public class SceneTransitionManager : SingletonBehaviour<SceneTransitionManager>
     {
         [SerializeField]
-        private SceneId m_InitialScene = SceneId.Menu;
+        private SceneId m_InitialScene = SceneId.MainMenu;
 
         private List<SceneController> m_SceneControllersList = new();
         private Dictionary<Scene, SceneController> m_SceneControllers = new();
@@ -240,14 +236,6 @@ namespace SceneManagement
 
             SceneManager.SetActiveScene(sceneId.GetScene());
 
-            if (m_Settings.MusicsOnScenes.ContainsKey(sceneId))
-            {
-                var sceneSound = m_Settings.MusicsOnScenes[sceneId];
-
-                using var musicEvent = SoundPlayEvent.Get(sceneSound, true);
-                musicEvent.SendGlobal();
-            }
-
             var evt2 = GetSceneControllerEvent.Get(sceneId).SendGlobal();
             if (evt2.Controller != null)
             {
@@ -291,20 +279,6 @@ namespace SceneManagement
         
         public bool ChangeScene(SceneId sceneId, bool animate = true)
         {
-            if (sceneId != m_InitialScene)
-            {
-                if (sceneId is SceneId.SideMissionOne or SceneId.BossOne)
-                {
-                    SceneManager.LoadSceneAsync(
-                        SceneId.CombatShared.ToString(), new LoadSceneParameters(LoadSceneMode.Additive, LocalPhysicsMode.None));
-                }
-                else
-                {
-                    if(SceneId.CombatShared.GetScene().IsValid())
-                        SceneManager.UnloadSceneAsync(SceneId.CombatShared.ToString());
-                }
-            }
-            
             m_Camera = Camera.main;
 
             for (var i = 0; i < m_SceneChangeListeners.Count; i++)

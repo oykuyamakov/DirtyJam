@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a09fe711314d8848b850826106f9b62, type: 3}
+  m_Name: LevelDataBundle
+  m_EditorClassIdentifier: 
+  LevelIndex: 1
+  MainSound: {fileID: 11400000, guid: 959e57149e782bc45ab0c421f23e7d7d, type: 2}
+  SoundBundle: {fileID: 11400000, guid: f3ffd277cebe4cc4d84a39be66f863c8, type: 2}
+  BadSound: {fileID: 11400000, guid: de689fd7ac4dc6d4eafc710aa74e3b11, type: 2}

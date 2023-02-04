@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using LevelManagement;
 using SceneManagement;
-using Sounds;
-using UnityCommon.Runtime.Utility;
+using UnityCommon.Variables;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SettingImplementations
 {
@@ -59,24 +58,14 @@ namespace SettingImplementations
         
         public int NightHour = 20;
 
-        [FormerlySerializedAs("m_ComicsBySceneIds")] [SerializeField]
-        public SerializableDictionary<SceneId, List<Sprite>> ComicsBySceneIds;
-        [FormerlySerializedAs("m_ScreensOnTransitions")] [SerializeField]
-        public SerializableDictionary<SceneToScene, List<Sprite>> ScreensOnTransitions;
-        
-        [Header("COMBAT")]
-        public float ScreenShakeDuration = 0.2f;
-        public float ScreenShakeMagnitude = 5f;
-        
-        [SerializeField]
-        public SerializableDictionary<SceneId, Sound> MusicsOnScenes = new SerializableDictionary<SceneId, Sound>();
-        
-        // [SerializeField] 
-        // public Sound MenuSound;
-        // [SerializeField] 
-        // public Sound HubSound;
-        // [SerializeField]
-        // public Sound BossSound;
+        public IntVariable Level;
+
+        public List<LevelDataBundle> LevelDataBundles;
+
+        public LevelDataBundle GetCurrentBundle()
+        {
+            return LevelDataBundles[Level % LevelDataBundles.Count];
+        }
     }
 
     [Serializable]
