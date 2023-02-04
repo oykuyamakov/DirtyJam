@@ -3,6 +3,7 @@ using BeatStuff;
 using DirectionImplementation;
 using Events;
 using PlayerImplementations.EventImplementations;
+using UnityCommon.Modules;
 using UnityEngine;
 
 namespace GridStuff
@@ -33,7 +34,7 @@ namespace GridStuff
             m_EnteredDirectionName = other.GetComponent<MoveToTheBeat>().DirectionName;
             m_EnteredObject = other.gameObject;
             
-            GEM.AddListener<AttackEvent>(OnAttackEvent);
+            GEM.AddListener<AttackEvent>(OnAttack, Priority.Critical);
         }
         
         private void OnTriggerExit2D(Collider2D other)
@@ -41,16 +42,20 @@ namespace GridStuff
             m_Entered = false;
             m_EnteredObject = null;
             
-            GEM.RemoveListener<AttackEvent>(OnAttackEvent);
+            GEM.RemoveListener<AttackEvent>(OnAttack);
         }
         
-        private void OnAttackEvent(AttackEvent evt)
+        private void OnAttack(AttackEvent evt)
         {
             if ((evt.AttackDirection & m_EnteredDirectionName) == m_EnteredDirectionName)
             {
                 evt.Success = true;
-                
-                m_EnteredObject.SetActive(false);
+
+                Conditional.WaitFrames(1)
+                    .Do(() =>
+                    {
+                        m_EnteredObject?.SetActive(false);
+                    });
             }
         }
     }

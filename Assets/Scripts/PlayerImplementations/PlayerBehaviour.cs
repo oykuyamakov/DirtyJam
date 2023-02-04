@@ -112,7 +112,7 @@ namespace PlayerImplementations
             }
             
             transform.rotation = Quaternion.Euler(0, 0, m_RotOnDir[m_CurrentDirection]);
-            using var evt = AttackEvent.Get(directionName);
+            var evt = AttackEvent.Get(directionName);
             evt.SendGlobal();
         }
     }

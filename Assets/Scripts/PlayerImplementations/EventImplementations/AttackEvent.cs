@@ -8,11 +8,19 @@ namespace PlayerImplementations.EventImplementations
     {
         public DirectionName AttackDirection;
         public bool Success;
+        
         public static AttackEvent Get(DirectionName attackDirection)
         {
             var evt = GetPooledInternal();
             evt.AttackDirection = attackDirection;
             return evt;
+        }
+
+        public override void Dispose()
+        {
+            Success = false;
+            
+            base.Dispose();
         }
     }
 }

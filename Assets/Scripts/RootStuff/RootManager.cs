@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using BeatStuff;
 using DirectionImplementation;
+using Pooling;
+using RootStuff;
 using Sirenix.OdinInspector;
 using UnityCommon.Runtime.Utility;
 using UnityEngine;
@@ -14,7 +16,9 @@ public class RootManager : MonoBehaviour
     
     [SerializeField]
     private Transform[] m_SpawnPoints = new Transform[8];
-    
+
+    private ObjectPool<Root> m_RootPool = new ObjectPool<Root>(50);
+
     private Dictionary<DirectionName, Vector3> m_SpawnPositionDictionary;
 
     private Dictionary<DirectionName, Vector3> m_SpawnDirectionDictionary;
@@ -58,7 +62,9 @@ public class RootManager : MonoBehaviour
     [Button]
     public void SpawnRoot(DirectionName directionName)
     {
-        var root = Instantiate(m_RootPrefab, m_SpawnPositionDictionary[directionName], Quaternion.identity);
+        var root = m_RootPool.GetPoolable(m_RootPrefab, null).Get();
+        root.transform.position = m_SpawnPositionDictionary[directionName];
+        
         var moveToTheBeat = root.GetComponent<MoveToTheBeat>();
         moveToTheBeat.Steps = 1f;
         moveToTheBeat.DirectionName = directionName;
