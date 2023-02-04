@@ -73,7 +73,7 @@ public class RootManager : MonoBehaviour
         moveToTheBeat.DirectionName = directionName;
         moveToTheBeat.MoveDir = m_SpawnDirectionDictionary[directionName];
         
-        root.transform.rotation = 
+        // root.transform.rotation = 
         
         root.Init();
     }
