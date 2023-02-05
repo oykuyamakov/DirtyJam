@@ -33,6 +33,12 @@ namespace UI
             m_Button.onClick.RemoveListener(OnButton);
         }
 
+        private void OnDestroy()
+        {
+            GEM.RemoveListener<LooseEvent>(OnLooseEvent);
+            m_Button.onClick.RemoveListener(OnButton);
+        }
+
         private void OnLooseEvent(LooseEvent evt)
         {
             m_Canvas.enabled = true;
