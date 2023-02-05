@@ -106,6 +106,42 @@ public class RootManager : MonoBehaviour
                 directionName = DirectionName.D;
             }
         }
+
+        if (directionName == (DirectionName.A | DirectionName.D | DirectionName.W))
+        {
+            var rand = Random.Range(0, 3);
+
+            if (rand == 0)
+            {
+                directionName = DirectionName.A;
+            }
+            else if(rand == 1)
+            {
+                directionName = DirectionName.D;
+            }
+            else
+            {
+                directionName = DirectionName.W;
+            }
+        }
+        
+        if (directionName == (DirectionName.S | DirectionName.D | DirectionName.W))
+        {
+            var rand = Random.Range(0, 3);
+
+            if (rand == 0)
+            {
+                directionName = DirectionName.S;
+            }
+            else if(rand == 1)
+            {
+                directionName = DirectionName.D;
+            }
+            else
+            {
+                directionName = DirectionName.W;
+            }
+        }
         
         var randomRootEnumerator = m_RootPrefabs.RandomTake(1).GetEnumerator();
         randomRootEnumerator.MoveNext();

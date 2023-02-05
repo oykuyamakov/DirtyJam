@@ -44,6 +44,11 @@ namespace PlayerImplementations
             
             using var evtChange = EventImplementations.PlayerHealthChangeEvent.Get(oldValue, CurrentHealth.CurrentValue);
             evtChange.SendGlobal();
+
+            if (CurrentHealth.CurrentValue <= 0)
+            {
+                OnDie();
+            }
         }
 
         public void OnHeal(float heal)

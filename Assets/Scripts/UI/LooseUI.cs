@@ -55,7 +55,5 @@ namespace UI
                 m_Canvas.enabled = false;
             });
         }
-        
-        
     }
 }
