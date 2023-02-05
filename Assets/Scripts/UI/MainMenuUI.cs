@@ -19,27 +19,25 @@ namespace UI
 
         private Sprite m_NormalSprite;
 
-        [SerializeField] private Sprite m_PressedImage;
+        [SerializeField] 
+        private Sprite m_PressedImage;
 
-        [SerializeField] private Image m_ButtonImage;
+        [SerializeField] 
+        private Image m_ButtonImage;
         
-        [SerializeField] private UIAlphaAnim m_UIAlphaAnim;
-
-        [SerializeField]
-        private UIAnimGroup m_UIAnimGroup;
+        [SerializeField] 
+        private UIAlphaAnim m_UIAlphaAnim;
+        [SerializeField] 
+        private UIAlphaAnim m_ButtonUIAlphaAnim;
         
-       // [SerializeField] private Light2D m_Light2D;
-
 
         private void Awake()
         {
             m_NormalSprite = m_ButtonImage.sprite;
             m_ButtonPressed = false;
             
-            m_UIAnimGroup.FadeIn();
-            // m_UIAlphaAnim.FadeIn();
+            m_UIAlphaAnim.FadeIn();
             
-            //DOTween.To(value => m_Light2D.intensity = value, 4, 8.5f, 5f).SetEase(Ease.InElastic).SetLoops(-1);
         }
 
         public void LoadGame()
@@ -54,8 +52,8 @@ namespace UI
             using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_UISelect);
             evt2.SendGlobal();
             
-            // m_UIAlphaAnim.FadeOut();
-            m_UIAnimGroup.FadeOut();
+            m_UIAlphaAnim.FadeOut();
+            m_ButtonUIAlphaAnim.FadeOut();
 
             Conditional.Wait(0.5f).Do(() =>
             {

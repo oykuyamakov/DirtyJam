@@ -2014,6 +2014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireAnims
       objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638672, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
         type: 3}
       propertyPath: m_RootOrder
