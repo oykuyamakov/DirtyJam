@@ -1073,6 +1073,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1003606029, guid: 1c16d2152aa889b42acb940ed1c62b8a, type: 3}
+      propertyPath: m_Button
+      value: 
+      objectReference: {fileID: 3960644612725827448}
+    - target: {fileID: 1003606029, guid: 1c16d2152aa889b42acb940ed1c62b8a, type: 3}
+      propertyPath: m_Canvas
+      value: 
+      objectReference: {fileID: 3960644612725827449}
     - target: {fileID: 3960644612016027515, guid: 1c16d2152aa889b42acb940ed1c62b8a,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1178,6 +1186,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3960644612016027516, guid: 1c16d2152aa889b42acb940ed1c62b8a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3960644612016027519, guid: 1c16d2152aa889b42acb940ed1c62b8a,
         type: 3}
       propertyPath: m_Name
@@ -1185,6 +1198,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c16d2152aa889b42acb940ed1c62b8a, type: 3}
+--- !u!114 &3960644612725827448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3960644612866305407, guid: 1c16d2152aa889b42acb940ed1c62b8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3960644612725827447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!223 &3960644612725827449 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3960644612016027516, guid: 1c16d2152aa889b42acb940ed1c62b8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3960644612725827447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5253966237106269469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1333,6 +1364,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1965168701, guid: 4d2619beb6055614ca8c670ed61f5de2, type: 3}
+      propertyPath: m_Button
+      value: 
+      objectReference: {fileID: 6381677053215083152}
+    - target: {fileID: 1965168701, guid: 4d2619beb6055614ca8c670ed61f5de2, type: 3}
+      propertyPath: m_Canvas
+      value: 
+      objectReference: {fileID: 6381677053215083153}
     - target: {fileID: 6381677051820610227, guid: 4d2619beb6055614ca8c670ed61f5de2,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1438,6 +1477,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6381677051820610228, guid: 4d2619beb6055614ca8c670ed61f5de2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381677051820610230, guid: 4d2619beb6055614ca8c670ed61f5de2,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 6381677051820610231, guid: 4d2619beb6055614ca8c670ed61f5de2,
         type: 3}
       propertyPath: m_Name
@@ -1445,3 +1494,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d2619beb6055614ca8c670ed61f5de2, type: 3}
+--- !u!114 &6381677053215083152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6381677052316605413, guid: 4d2619beb6055614ca8c670ed61f5de2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6381677053215083151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!223 &6381677053215083153 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6381677051820610228, guid: 4d2619beb6055614ca8c670ed61f5de2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6381677053215083151}
+  m_PrefabAsset: {fileID: 0}

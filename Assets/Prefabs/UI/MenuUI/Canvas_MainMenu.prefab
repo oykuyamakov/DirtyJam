@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4008073008188612481}
   - component: {fileID: 4008073008188612487}
   - component: {fileID: 4008073008188612480}
+  - component: {fileID: 1501068418}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -60,15 +61,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 0016093e1cbaa2d48967d773cd4eb445, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -77,6 +78,56 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1501068418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008073008188612482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818cc439236b9d94f80546c23efaaa9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay:
+    m_type: 0
+    constantValue: 0
+    variable: {fileID: 0}
+    gameObject: {fileID: 0}
+    behaviour: {fileID: 0}
+    fieldName: 
+  duration: 0.35
+  useUnscaledTime: 0
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outColor: {r: 0, g: 0, b: 0, a: 0}
+  unscaledTime: 0
+  initiallyVisible: 1
+  inColor: {r: 1, g: 1, b: 1, a: 1}
+  graphic: {fileID: 4008073008188612480}
 --- !u!1 &4008073008305053657
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c14c813b8b5ee408805635308167f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PressedImage: {fileID: 21300000, guid: 228f4466264769246af90b002f00060a, type: 3}
+  m_ButtonImage: {fileID: 4008073008407662138}
+  m_UIAlphaAnim: {fileID: 1501068418}
 --- !u!1 &4008073008407662149
 GameObject:
   m_ObjectHideFlags: 0
