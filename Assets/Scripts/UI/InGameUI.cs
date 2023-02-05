@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using DG.Tweening;
 using Events;
 using PlayerImplementations.EventImplementations;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -10,6 +13,20 @@ namespace UI
     {
         [SerializeField]
         private TextMeshProUGUI m_HealthText;
+        
+        [SerializeField]
+        private List<Image> m_HealthImages = new List<Image>();
+
+        private int Index;
+
+        private void OnGetDamage()
+        {
+            if(Index > m_HealthImages.Count - 1)
+                return;
+            
+            m_HealthImages[Index].DOFade(0, 0.2f);
+            Index++;
+        }
 
         private void Awake()
         {
@@ -23,7 +40,8 @@ namespace UI
 
         public void OnHealthChangeEvent(PlayerHealthChangeEvent evt)
         {
-            SetHealth((int)evt.NewHealth);
+            OnGetDamage();
+           // SetHealth((int)evt.NewHealth);
         }
         public void SetHealth(int health)
         {
