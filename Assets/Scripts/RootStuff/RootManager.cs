@@ -21,10 +21,12 @@ public class RootManager : MonoBehaviour
 
     public static ObjectPool<Root> RootPool = new ObjectPool<Root>(50);
 
+    public static Dictionary<int, DirectionName> BeatDirectionDictionary;
+    
     private Dictionary<DirectionName, Vector3> m_SpawnPositionDictionary;
 
     private Dictionary<DirectionName, Vector3> m_SpawnDirectionDictionary;
-
+    
     private TimedAction m_RandomSpawnAction;
 
     private void Start()
@@ -43,15 +45,20 @@ public class RootManager : MonoBehaviour
         
         m_SpawnDirectionDictionary = new Dictionary<DirectionName, Vector3>()
         {
-            [DirectionName.S] = Vector3.down,
-            [DirectionName.D] = Vector3.right,
-            [DirectionName.W] = Vector3.up,
-            [DirectionName.A] = Vector3.left,
-            [DirectionName.W | DirectionName.A] = new Vector3(-1, 1, 0),
-            [DirectionName.W | DirectionName.D] = new Vector3(1, 1, 0),
-            [DirectionName.S | DirectionName.A] = new Vector3(-1, -1, 0),
-            [DirectionName.S | DirectionName.D] = new Vector3(1, -1, 0),
+            [DirectionName.S] = Vector3.up,
+            [DirectionName.D] = Vector3.left,
+            [DirectionName.W] = Vector3.down,
+            [DirectionName.A] = Vector3.right,
+            [DirectionName.W | DirectionName.A] = new Vector3(1, -1, 0),
+            [DirectionName.W | DirectionName.D] = new Vector3(-1, -1, 0),
+            [DirectionName.S | DirectionName.A] = new Vector3(1, 1, 0),
+            [DirectionName.S | DirectionName.D] = new Vector3(-1, 1, 0),
         };
+
+        BeatDirectionDictionary = new Dictionary<int, DirectionName>();
+
+        LevelCreator.GetBeatData(LevelCreator.W, DirectionName.W);
+        LevelCreator.GetBeatData(LevelCreator.A, DirectionName.A);
 
         // m_RandomSpawnAction = new TimedAction(RandomlySpawnRoots, 0f, 1f);
         GEM.AddListener<OnBeatEvent>(OnBeat);
@@ -76,16 +83,28 @@ public class RootManager : MonoBehaviour
         switch (directionName)
         {
             case DirectionName.A:
-                root.transform.rotation = Quaternion.Euler(180, 0, 0);
+                root.transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
             case DirectionName.D:
-                root.transform.rotation = Quaternion.Euler(180, 0, 180);
+                root.transform.rotation = Quaternion.Euler(0, 0, 180);
                 break;
             case DirectionName.S:
-                root.transform.rotation = Quaternion.Euler(180, 0, -90);
+                root.transform.rotation = Quaternion.Euler(0, 0, 90);
                 break;
             case DirectionName.W:
-                root.transform.rotation = Quaternion.Euler(180, 0, 90);
+                root.transform.rotation = Quaternion.Euler(0, 0, -90);
+                break;
+            case DirectionName.W | DirectionName.A:
+                root.transform.rotation = Quaternion.Euler(0, 0, -45);
+                break;
+            case DirectionName.S | DirectionName.A:
+                root.transform.rotation = Quaternion.Euler(0, 0, 45);
+                break;
+            case DirectionName.W | DirectionName.D:
+                root.transform.rotation = Quaternion.Euler(0, 0, 225);
+                break;
+            case DirectionName.S | DirectionName.D:
+                root.transform.rotation = Quaternion.Euler(0, 0, 135);
                 break;
         }
         
@@ -99,11 +118,20 @@ public class RootManager : MonoBehaviour
         SpawnRoot(randomValue);
     }
 
+    private int m_Beat = 0;
+    
     private void OnBeat(OnBeatEvent evt)
     {
-        if(evt.Steps != 0.25f)
+        if(evt.Steps != 1f)
             return;
-        
-        RandomlySpawnRoots();
+
+        // RandomlySpawnRoots();
+        m_Beat++;
+
+        if (BeatDirectionDictionary.ContainsKey(m_Beat))
+        {
+            Debug.Log(m_Beat);
+            SpawnRoot(BeatDirectionDictionary[m_Beat]);
+        }
     }
 }

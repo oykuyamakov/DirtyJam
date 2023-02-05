@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124b12911b6a2a4488c04ac35244304e, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  m_PlayerHealth: {fileID: 11400000, guid: 1b3385084180f4c4c918ff817bfd78bc, type: 2}
   MaxHealth: 100
-  CurrentHealth: 100
   Name: Drone
+  GetHitSound: {fileID: 11400000, guid: e0890337bdd52d44c93ae9266d9af099, type: 2}

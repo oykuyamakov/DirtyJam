@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace RootStuff
 {
-    [RequireComponent(typeof(MoveToTheBeat))]
     public class Root : MonoBehaviour, IPoolable<Root>
     {
         private MoveToTheBeat m_MoveToTheBeat;
@@ -37,7 +36,8 @@ namespace RootStuff
             if(col.TryGetComponent(out PlayerBehaviour playerBehaviour))
             {
                 RootManager.RootPool.ReleasePoolable(this);
-                // TODO: get damage
+                
+                playerBehaviour.GetDamage(15f);
             }
         }
     }

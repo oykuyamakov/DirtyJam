@@ -33,7 +33,7 @@ namespace GridStuff
             // m_SpriteRenderer.color = Color.yellow;
 
             m_Entered = true;
-            m_EnteredDirectionName = other.GetComponent<MoveToTheBeat>().DirectionName;
+            m_EnteredDirectionName = other.GetComponentInParent<MoveToTheBeat>().DirectionName;
             m_EnteredObject = other.gameObject;
             
             GEM.AddListener<AttackEvent>(OnAttack, Priority.Critical);
@@ -64,7 +64,7 @@ namespace GridStuff
                         if(m_EnteredObject == null)
                             return;
                         
-                        RootManager.RootPool.ReleasePoolable(m_EnteredObject.GetComponent<Root>());
+                        RootManager.RootPool.ReleasePoolable(m_EnteredObject.GetComponentInParent<Root>());
                     });
             }
         }
