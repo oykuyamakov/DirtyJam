@@ -14,7 +14,7 @@ using Utility;
 
 namespace Roro.Scripts.Sounds.Core
 {
-	//[DefaultExecutionOrder(ExecOrder.SoundManager)]
+	[DefaultExecutionOrder(ExecOrder.SoundManager)]
 	[RequireComponent(typeof(AudioSource))]
 	public class SoundManager : SingletonBehaviour<SoundManager>
 	{
@@ -35,11 +35,15 @@ namespace Roro.Scripts.Sounds.Core
 
 		private void Awake()
 		{
-			if(SetupInstance(true))
-				return;
+			Debug.Log("0");
 			
+			if (!SetupInstance())
+				return;
+
 			//m_SoundsDisabled = Var.Get<BoolVariable>("SFXDisabled");
 
+			Debug.Log("1");
+			
 			m_SourceIndex = 0;
 			m_LoopSourceIndex = 0;
 			
@@ -52,6 +56,9 @@ namespace Roro.Scripts.Sounds.Core
 
 		private void OnSoundPlayEvent(SoundPlayEvent evt)
 		{
+			Debug.Log("2");
+
+			
 			if (evt.Loop)
 			{
 				PlayLoop(evt.Sound);
