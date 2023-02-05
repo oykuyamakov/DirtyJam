@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SoundManagement;
 using Sounds;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace LevelManagement
         public float LevelIndex;
         
         public Sound MainSound;
+
+        public List<Sound> MainSounds = new List<Sound>();
         
         public SoundBundle SoundBundle;
 

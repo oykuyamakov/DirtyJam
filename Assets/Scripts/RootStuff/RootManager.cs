@@ -67,7 +67,7 @@ public class RootManager : MonoBehaviour
         // m_RandomSpawnAction = new TimedAction(RandomlySpawnRoots, 0f, 1f);
         GEM.AddListener<OnBeatEvent>(OnBeat);
     }
-
+    
     private void Update()
     {
         // m_RandomSpawnAction.Update(Time.deltaTime);

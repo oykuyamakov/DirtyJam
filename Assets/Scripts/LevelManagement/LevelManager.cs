@@ -25,9 +25,17 @@ namespace LevelManagement
         {
             if (evt.Success)
             {
-                m_QueuedDirection = evt.AttackDirection;
+                // m_QueuedDirection = evt.AttackDirection;
+                //
+                // GEM.AddListener<OnBeatEvent>(OnBeat);
                 
-                GEM.AddListener<OnBeatEvent>(OnBeat);
+                var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+
+                foreach (var sound in sounds)
+                {
+                    using var evtSound = SoundPlayEvent.Get(sound);
+                    evtSound.SendGlobal();
+                }
             }
             else
             {

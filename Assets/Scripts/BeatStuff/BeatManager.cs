@@ -1,6 +1,8 @@
 using System;
 using BeatStuff.EventImplementations;
 using Events;
+using SettingImplementations;
+using UnityCommon.Modules;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +18,36 @@ namespace BeatStuff
 
         [SerializeField]
         private Intervals[] m_Intervals;
+
+        private void Start()
+        {
+            SetupLevelBeat(0);
+        }
+
+        private void SetupLevelBeat(int index)
+        {
+            if (index >= GeneralSettings.Get().GetCurrentBundle().MainSounds.Count)
+            {
+                // TODO: level manager on win
+                return;
+            }
+
+            var sound = GeneralSettings.Get().GetCurrentBundle().MainSounds[index];
+            var clip = sound.Clip;
+            m_AudioSource.clip = clip;
+            m_BPM = sound.BPM;
+
+            if (!m_AudioSource.isPlaying)
+            {
+                m_AudioSource.Play();
+            }
+
+            Conditional.Wait(clip.length)
+                .Do(() => 
+                {
+                    SetupLevelBeat(++index);
+                });
+        }
 
         void Update()
         {

@@ -17,10 +17,15 @@ namespace Sounds
 		[SerializeField]
 		private bool m_Loop = false;
 
+		[SerializeField]
+		private int m_BPM;
+
 		public AudioClip Clip   => m_AudioClip;
 		public float     Volume => m_Volume;
 		public float     Pitch  => m_Pitch;
 
 		public bool Loop => m_Loop;
+
+		public int BPM => m_BPM;
 	}
 }
