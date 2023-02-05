@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityCommon.Modules;
 using UnityCommon.Runtime.UI.Animations;
@@ -11,6 +12,8 @@ namespace UI
         [SerializeField] private List<UITranslateAnim> m_ComboWays;
 
         private int m_Index;
+
+    
         public void OnBeatChangeEvent()
         {
             if (m_Index == 0)
