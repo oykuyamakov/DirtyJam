@@ -37,7 +37,7 @@ namespace RootStuff
             {
                 RootManager.RootPool.ReleasePoolable(this);
                 
-                playerBehaviour.GetDamage(15f);
+                playerBehaviour.GetDamage(20f);
             }
         }
     }

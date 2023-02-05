@@ -1,10 +1,11 @@
-using System;
+using System.Collections.Generic;
 using BeatStuff.EventImplementations;
 using DirectionImplementation;
 using Events;
 using PlayerImplementations.EventImplementations;
 using SettingImplementations;
 using SoundManagement;
+using UnityCommon.Modules;
 using UnityEngine;
 
 namespace LevelManagement
@@ -17,44 +18,106 @@ namespace LevelManagement
 
         private DirectionName m_QueuedDirection;
 
+        [SerializeField] private List<Animator> m_FireAnimators1;
+        [SerializeField] private List<Animator> m_FireAnimators2;
+        [SerializeField] private List<Animator> m_FireAnimators3;
+        [SerializeField] private List<Animator> m_FireAnimators4;
+        
         private float m_SinceLastBeat = 0f;
 
         [SerializeField]
         private float m_BeatTolerance = 0.25f;
+
+        private void AnimateFiresArbitrary()
+        {
+            foreach (var f1 in m_FireAnimators1)
+            {
+                f1.gameObject.SetActive(true);
+                f1.SetTrigger("Fire");
+            }
+            
+            Conditional.Wait(0.5f).Do(() =>
+            {
+                foreach (var f2 in m_FireAnimators2)
+                {
+                    f2.gameObject.SetActive(true);
+                    f2.SetTrigger("Fire");
+                }
+                
+                Conditional.Wait(0.5f).Do(() =>
+                {
+                    foreach (var f3 in m_FireAnimators3)
+                    {
+                        f3.gameObject.SetActive(true);
+                        f3.SetTrigger("Fire");
+                    }
+                    
+                    Conditional.Wait(0.5f).Do(() =>
+                    {
+                        foreach (var f4 in m_FireAnimators4)
+                        {
+                            f4.gameObject.SetActive(true);
+                            f4.SetTrigger("Fire");
+                        }
+                        
+                        Conditional.Wait(0.5f).Do(() =>
+                        {
+                            foreach (var f1 in m_FireAnimators1)
+                            {
+                                f1.gameObject.SetActive(false);
+                            }
+                            
+                            Conditional.Wait(0.5f).Do(() =>
+                            {
+                                foreach (var f2 in m_FireAnimators2)
+                                {
+                                    f2.gameObject.SetActive(false);
+                                }
+                                
+                                Conditional.Wait(0.5f).Do(() =>
+                                {
+                                    foreach (var f3 in m_FireAnimators3)
+                                    {
+                                        f3.gameObject.SetActive(false);
+                                    }
+                                    
+                                    Conditional.Wait(0.5f).Do(() =>
+                                    {
+                                        foreach (var f4 in m_FireAnimators4)
+                                        {
+                                            f4.gameObject.SetActive(false);
+                                        }
+                                    });
+                                });
+                            });
+                        });
+
+                    });
+                });
+            });
+        }
         
         private void Awake()
         {
             GEM.AddListener<AttackEvent>(OnAttackEvent, Priority.Lowest);
+            GEM.AddListener<WinEvent>(OnWin);
         }
 
         private void OnAttackEvent(AttackEvent evt)
         {
             if (evt.Success)
             {
-                if (m_SinceLastBeat <= m_BeatTolerance)
-                {
-                    var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
-
-                    foreach (var sound in sounds)
-                    {
-                        using var evtSound = SoundPlayEvent.Get(sound);
-                        evtSound.SendGlobal();
-                    }
-                }
-                else
-                {
-                    m_QueuedDirection = evt.AttackDirection;
-                
-                    GEM.AddListener<OnBeatEvent>(OnBeat);
-                }
-                
-                // var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+                // m_QueuedDirection = evt.AttackDirection;
                 //
-                // foreach (var sound in sounds)
-                // {
-                //     using var evtSound = SoundPlayEvent.Get(sound);
-                //     evtSound.SendGlobal();
-                // }
+                // GEM.AddListener<OnBeatEvent>(OnBeat);
+                
+                var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+
+                foreach (var sound in sounds)
+                {
+                    using var evtSound = SoundPlayEvent.Get(sound);
+                    evtSound.SendGlobal();
+                }
             }
             else
             {
@@ -64,12 +127,12 @@ namespace LevelManagement
             
             evt.Dispose();
         }
-
+        
         private void Update()
         {
             m_SinceLastBeat += Time.deltaTime;
         }
-
+        
         private void OnBeat(OnBeatEvent evt)
         {
             m_SinceLastBeat = 0f;
@@ -85,9 +148,9 @@ namespace LevelManagement
             GEM.RemoveListener<OnBeatEvent>(OnBeat);
         }
         
-        private void OnWin()
+        private void OnWin(WinEvent evt)
         {
-            
+            AnimateFiresArbitrary();
         }
 
         private void OnLoose()

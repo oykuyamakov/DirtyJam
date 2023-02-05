@@ -34,8 +34,11 @@ namespace UI
         
         private void OnWinEvent(WinEvent evt)
         {
-            m_Canvas.enabled = true;
-            m_WinPanelAnim.FadeIn();
+            Conditional.Wait(2f).Do(()=>
+            {
+                m_Canvas.enabled = true;
+                m_WinPanelAnim.FadeIn();
+            });
         }
         
         private void OnButton()
