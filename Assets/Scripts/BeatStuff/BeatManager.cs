@@ -21,6 +21,8 @@ namespace BeatStuff
         [SerializeField]
         private Intervals[] m_Intervals;
 
+        private float m_SinceLastBeat = 0f;
+
         private void Start()
         {
             SetupLevelBeat(0);

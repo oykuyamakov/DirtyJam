@@ -64,6 +64,9 @@ public class RootManager : MonoBehaviour
         LevelCreator.GetBeatData(LevelCreator.W, DirectionName.W);
         LevelCreator.GetBeatData(LevelCreator.A, DirectionName.A);
 
+        LevelCreator.GetBeatData(LevelCreator.S, DirectionName.S);
+        LevelCreator.GetBeatData(LevelCreator.D, DirectionName.D);
+        
         // m_RandomSpawnAction = new TimedAction(RandomlySpawnRoots, 0f, 1f);
         GEM.AddListener<OnBeatEvent>(OnBeat);
     }
@@ -76,6 +79,34 @@ public class RootManager : MonoBehaviour
     [Button]
     public void SpawnRoot(DirectionName directionName)
     {
+        if (directionName == (DirectionName.W | DirectionName.S))
+        {
+            var rand = Random.Range(0, 2);
+
+            if (rand == 0)
+            {
+                directionName = DirectionName.W;
+            }
+            else
+            {
+                directionName = DirectionName.S;
+            }
+        }
+        
+        if (directionName == (DirectionName.A | DirectionName.D))
+        {
+            var rand = Random.Range(0, 2);
+
+            if (rand == 0)
+            {
+                directionName = DirectionName.A;
+            }
+            else
+            {
+                directionName = DirectionName.D;
+            }
+        }
+        
         var randomRootEnumerator = m_RootPrefabs.RandomTake(1).GetEnumerator();
         randomRootEnumerator.MoveNext();
         var prefab = randomRootEnumerator.Current;

@@ -1,3 +1,4 @@
+using System;
 using BeatStuff.EventImplementations;
 using DirectionImplementation;
 using Events;
@@ -45,6 +46,11 @@ namespace BeatStuff
         }
 
         public void ResetData()
+        {
+            GEM.RemoveListener<OnBeatEvent>(OnBeat);
+        }
+
+        private void OnDestroy()
         {
             GEM.RemoveListener<OnBeatEvent>(OnBeat);
         }

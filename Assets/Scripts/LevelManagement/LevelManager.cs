@@ -1,3 +1,4 @@
+using System;
 using BeatStuff.EventImplementations;
 using DirectionImplementation;
 using Events;
@@ -15,6 +16,11 @@ namespace LevelManagement
         private SoundBundle m_CurrentSoundBundle => m_CurrentLevelDataBundle.SoundBundle;
 
         private DirectionName m_QueuedDirection;
+
+        private float m_SinceLastBeat = 0f;
+
+        [SerializeField]
+        private float m_BeatTolerance = 0.25f;
         
         private void Awake()
         {
@@ -25,17 +31,30 @@ namespace LevelManagement
         {
             if (evt.Success)
             {
-                // m_QueuedDirection = evt.AttackDirection;
-                //
-                // GEM.AddListener<OnBeatEvent>(OnBeat);
-                
-                var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
-
-                foreach (var sound in sounds)
+                if (m_SinceLastBeat <= m_BeatTolerance)
                 {
-                    using var evtSound = SoundPlayEvent.Get(sound);
-                    evtSound.SendGlobal();
+                    var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+
+                    foreach (var sound in sounds)
+                    {
+                        using var evtSound = SoundPlayEvent.Get(sound);
+                        evtSound.SendGlobal();
+                    }
                 }
+                else
+                {
+                    m_QueuedDirection = evt.AttackDirection;
+                
+                    GEM.AddListener<OnBeatEvent>(OnBeat);
+                }
+                
+                // var sounds = m_CurrentSoundBundle.GetSound(evt.AttackDirection);
+                //
+                // foreach (var sound in sounds)
+                // {
+                //     using var evtSound = SoundPlayEvent.Get(sound);
+                //     evtSound.SendGlobal();
+                // }
             }
             else
             {
@@ -46,8 +65,15 @@ namespace LevelManagement
             evt.Dispose();
         }
 
+        private void Update()
+        {
+            m_SinceLastBeat += Time.deltaTime;
+        }
+
         private void OnBeat(OnBeatEvent evt)
         {
+            m_SinceLastBeat = 0f;
+            
             var sounds = m_CurrentSoundBundle.GetSound(m_QueuedDirection);
 
             foreach (var sound in sounds)

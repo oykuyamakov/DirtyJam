@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99f9272ce0a44568c231cce0824367d, type: 3}
   m_Name: A_Sound
   m_EditorClassIdentifier: 
-  m_AudioClip: {fileID: 8300000, guid: 53c83910da314e2489df3ed144e68970, type: 3}
+  m_AudioClip: {fileID: 8300000, guid: 270b99b261d3c524bb92254d5cb82d0c, type: 3}
   m_Volume: 3
   m_Pitch: 1
   m_Loop: 0
+  m_BPM: 0
