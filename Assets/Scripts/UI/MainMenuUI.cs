@@ -5,6 +5,7 @@ using SceneManagement;
 using SettingImplementations;
 using Sounds;
 using UnityCommon.Modules;
+using UnityCommon.Runtime.UI.Animations;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
@@ -21,6 +22,8 @@ namespace UI
         [SerializeField] private Sprite m_PressedImage;
 
         [SerializeField] private Image m_ButtonImage;
+        
+        [SerializeField] private UIAlphaAnim m_UIAlphaAnim;
 
        // [SerializeField] private Light2D m_Light2D;
 
@@ -29,6 +32,8 @@ namespace UI
         {
             m_NormalSprite = m_ButtonImage.sprite;
             m_ButtonPressed = false;
+            
+            m_UIAlphaAnim.FadeIn();
             
             //DOTween.To(value => m_Light2D.intensity = value, 4, 8.5f, 5f).SetEase(Ease.InElastic).SetLoops(-1);
         }
@@ -44,10 +49,11 @@ namespace UI
             
             using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_UISelect);
             evt2.SendGlobal();
+            
+            m_UIAlphaAnim.FadeOut();
 
-            Conditional.Wait(3).Do(() =>
+            Conditional.Wait(0.5f).Do(() =>
             {
-                
                 using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_StartSound);
                 evt2.SendGlobal();
                 
