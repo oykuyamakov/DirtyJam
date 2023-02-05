@@ -22,7 +22,7 @@ namespace UI
 
         [SerializeField] private Image m_ButtonImage;
 
-        [SerializeField] private Light2D m_Light2D;
+       // [SerializeField] private Light2D m_Light2D;
 
 
         private void Awake()
@@ -30,7 +30,7 @@ namespace UI
             m_NormalSprite = m_ButtonImage.sprite;
             m_ButtonPressed = false;
             
-            DOTween.To(value => m_Light2D.intensity = value, 4, 8.5f, 5f).SetEase(Ease.InElastic).SetLoops(-1);
+            //DOTween.To(value => m_Light2D.intensity = value, 4, 8.5f, 5f).SetEase(Ease.InElastic).SetLoops(-1);
         }
 
         public void LoadGame()

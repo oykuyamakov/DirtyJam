@@ -207,6 +207,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &32505504 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190098553305573, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &53100740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 552559613}
   m_SpriteRenderer: {fileID: 552559611}
+  m_FireAnimator: {fileID: 879905810}
 --- !u!60 &552559613
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1463,6 +1470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 696209560}
   m_SpriteRenderer: {fileID: 696209558}
+  m_FireAnimator: {fileID: 918333892}
 --- !u!60 &696209560
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1994,6 +2002,111 @@ Transform:
   m_Father: {fileID: 603063147}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 315}
+--- !u!1001 &879905809
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6533190099035638672, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_Name
+      value: FireAnims
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8499448
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.050701983
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533190099035638679, guid: 1232c840d9de080469c4fcf3554a16de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1232c840d9de080469c4fcf3554a16de, type: 3}
+--- !u!95 &879905810 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190097885781981, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &879905811 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190099348653323, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &879905812 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190098333188197, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &879905813 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190099429692908, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &879905814 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190097884742320, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &893312900 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190099320298547, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &904022546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2191,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &918333892 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6533190098305650710, guid: 1232c840d9de080469c4fcf3554a16de,
+    type: 3}
+  m_PrefabInstance: {fileID: 879905809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &933133424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 974601042}
   m_SpriteRenderer: {fileID: 974601040}
+  m_FireAnimator: {fileID: 32505504}
 --- !u!60 &974601042
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2397,6 +2517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 1012715143}
   m_SpriteRenderer: {fileID: 1012715141}
+  m_FireAnimator: {fileID: 879905814}
 --- !u!60 &1012715143
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2734,6 +2855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 1297054883}
   m_SpriteRenderer: {fileID: 1297054881}
+  m_FireAnimator: {fileID: 879905812}
 --- !u!60 &1297054883
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3155,6 +3277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 1385919900}
   m_SpriteRenderer: {fileID: 1385919898}
+  m_FireAnimator: {fileID: 893312900}
 --- !u!60 &1385919900
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3290,6 +3413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 1443802401}
   m_SpriteRenderer: {fileID: 1443802399}
+  m_FireAnimator: {fileID: 879905811}
 --- !u!60 &1443802401
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3745,6 +3869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 2027622081}
   m_SpriteRenderer: {fileID: 2027622079}
+  m_FireAnimator: {fileID: 879905813}
 --- !u!60 &2027622081
 PolygonCollider2D:
   m_ObjectHideFlags: 0

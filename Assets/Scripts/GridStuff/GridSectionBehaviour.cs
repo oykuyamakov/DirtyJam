@@ -31,6 +31,12 @@ namespace GridStuff
             m_Collider = GetComponent<Collider2D>();
         }
 
+        private void Awake()
+        {
+            m_FireAnimator.gameObject.SetActive(false);
+
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             // m_SpriteRenderer.color = Color.yellow;
@@ -60,8 +66,13 @@ namespace GridStuff
                 //     {
                 //         m_SpriteRenderer.DOFade(0f, 0.05f);
                 //     });
-                
+                m_FireAnimator.gameObject.SetActive(true);
                 m_FireAnimator.SetTrigger("Fire");
+
+                Conditional.Wait(0.23f).Do(() =>
+                {
+                    m_FireAnimator.gameObject.SetActive(false);
+                });
                 
                 Conditional.WaitFrames(1)
                     .Do(() =>
