@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Loading.unity
     guid: 1588973e38178984c8ec53e535b57028
   - enabled: 1
-    path: Assets/Scenes/Beat_Test.unity
+    path: Assets/Scenes/Beat.unity
     guid: 33739f79980e2ee4a802e0eb713b28fc
   m_configObjects: {}

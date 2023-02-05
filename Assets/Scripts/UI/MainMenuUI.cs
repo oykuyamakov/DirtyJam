@@ -45,8 +45,12 @@ namespace UI
             using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_UISelect);
             evt2.SendGlobal();
 
-            Conditional.Wait(1).Do(() =>
+            Conditional.Wait(3).Do(() =>
             {
+                
+                using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_StartSound);
+                evt2.SendGlobal();
+                
                 using var evt = SceneChangeRequestEvent.Get(SceneId.Game);
                 evt.SendGlobal();
                 

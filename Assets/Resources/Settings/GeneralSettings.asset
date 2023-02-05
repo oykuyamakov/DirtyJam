@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GeneralSettings
   m_EditorClassIdentifier: 
   m_UISelect: {fileID: 11400000, guid: 4fca7e50d4b798c40952045168f1a167, type: 2}
+  m_StartSound: {fileID: 11400000, guid: 10b88c496e01de345966b8b072d6d510, type: 2}
   SceneTransitionDuration: 2
   IntroWaitDuration: 2
   MinuteToRealTime: 0.7
