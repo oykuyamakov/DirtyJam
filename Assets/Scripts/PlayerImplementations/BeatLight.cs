@@ -21,10 +21,10 @@ namespace PlayerImplementations
 
         private void OnBeatEvent(OnBeatEvent evt)
         {
-            m_Tween = DOTween.To(value => m_Light2D.intensity = value, 0.95f, 1.5f, 0.12f).SetEase(Ease.InElastic);
+            m_Tween = DOTween.To(value => m_Light2D.intensity = value, 1f, 1.5f, 0.12f);
             m_Tween.onComplete = () =>
             {
-                DOTween.To(value => m_Light2D.intensity = value, 1.5f, 0.95f, 0.05f).SetEase(Ease.InElastic); };
+                DOTween.To(value => m_Light2D.intensity = value, 1.5f, 1f, 0.05f); };
         }
     }
 }
