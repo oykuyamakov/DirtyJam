@@ -49,7 +49,7 @@ namespace GridStuff
         
         private void OnAttack(AttackEvent evt)
         {
-            if ((evt.AttackDirection & m_EnteredDirectionName) == m_EnteredDirectionName)
+            if ((evt.AttackDirection | m_EnteredDirectionName) == m_EnteredDirectionName)
             {
                 evt.Success = true;
                 m_SpriteRenderer.DOFade(0.5f, 0.2f).SetLoops(3, LoopType.Yoyo)

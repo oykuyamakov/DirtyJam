@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7579527f0e6264a4e961caa068e744c9, type: 3}
   m_Name: GeneralSettings
   m_EditorClassIdentifier: 
+  m_UISelect: {fileID: 11400000, guid: 4fca7e50d4b798c40952045168f1a167, type: 2}
   SceneTransitionDuration: 2
   IntroWaitDuration: 2
   MinuteToRealTime: 0.7

@@ -1,7 +1,14 @@
 using System;
+using DG.Tweening;
 using Events;
 using SceneManagement;
+using SettingImplementations;
+using Sounds;
+using UnityCommon.Modules;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -9,9 +16,21 @@ namespace UI
     {
         private bool m_ButtonPressed;
 
+        private Sprite m_NormalSprite;
+
+        [SerializeField] private Sprite m_PressedImage;
+
+        [SerializeField] private Image m_ButtonImage;
+
+        [SerializeField] private Light2D m_Light2D;
+
+
         private void Awake()
         {
+            m_NormalSprite = m_ButtonImage.sprite;
             m_ButtonPressed = false;
+            
+            DOTween.To(value => m_Light2D.intensity = value, 4, 8.5f, 5f).SetEase(Ease.InElastic).SetLoops(-1);
         }
 
         public void LoadGame()
@@ -20,9 +39,21 @@ namespace UI
                 return;
             
             m_ButtonPressed = true;
+            
+            m_ButtonImage.sprite = m_PressedImage;
+            
+            using var evt2 = SoundPlayEvent.Get(GeneralSettings.Get().m_UISelect);
+            evt2.SendGlobal();
 
-            using var evt = SceneChangeRequestEvent.Get(SceneId.Game);
-            evt.SendGlobal();
+            Conditional.Wait(1).Do(() =>
+            {
+                using var evt = SceneChangeRequestEvent.Get(SceneId.Game);
+                evt.SendGlobal();
+                
+                m_ButtonImage.sprite = m_NormalSprite;
+
+                m_ButtonPressed = false;
+            });
         }
     }
 }

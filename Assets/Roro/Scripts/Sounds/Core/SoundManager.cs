@@ -16,7 +16,7 @@ namespace Roro.Scripts.Sounds.Core
 {
 	//[DefaultExecutionOrder(ExecOrder.SoundManager)]
 	[RequireComponent(typeof(AudioSource))]
-	public class SoundManager : MonoBehaviour
+	public class SoundManager : SingletonBehaviour<SoundManager>
 	{
 		
 		[SerializeField]
@@ -35,6 +35,9 @@ namespace Roro.Scripts.Sounds.Core
 
 		private void Awake()
 		{
+			if(SetupInstance(true))
+				return;
+			
 			//m_SoundsDisabled = Var.Get<BoolVariable>("SFXDisabled");
 
 			m_SourceIndex = 0;

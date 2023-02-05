@@ -21,6 +21,7 @@ namespace SceneManagement
         MainMenu = 0,
         Game = 2,
         Shared = 4,
+        BeatTest = 8,
         Loading = 64,
         None = 128,
     }
@@ -47,27 +48,13 @@ namespace SceneManagement
     [DefaultExecutionOrder(ExecOrder.SceneManager)]
     public class SceneTransitionManager : SingletonBehaviour<SceneTransitionManager>
     {
-        [SerializeField]
-        private SceneId m_InitialScene = SceneId.MainMenu;
-
-        private List<SceneController> m_SceneControllersList = new();
-        private Dictionary<Scene, SceneController> m_SceneControllers = new();
-
         [ShowInInspector] public SceneId CurrentSceneId => m_CurrentSceneId;
         private SceneId m_CurrentSceneId;
         private SceneId m_NextSceneId;
         private SceneId m_SceneToUnload;
-        private SceneId m_CurrentTempSceneId;
 
         private SerializationWizard m_SerializationContext;
-
-        public bool debug = false;
-
-        private List<Action<SceneId>> m_SceneChangeListeners = new List<Action<SceneId>>();
-        private List<SceneController> m_PermanentSceneControllers = new();
-
-        private Camera m_Camera;
-
+        
         private Conditional m_CameraDisableTimer;
 
         private bool m_NextTempSceneLoaded;
@@ -82,117 +69,45 @@ namespace SceneManagement
                 return;
 
             m_Settings = GeneralSettings.Get();
-            m_Camera = Camera.main;
             m_NextTempSceneLoaded = false;
             m_SerializationContext = SerializationWizard.Default;
 
             GEM.AddListener<SceneChangeRequestEvent>(OnSceneChangeRequest);
-
-            if (debug)
-            {
-                Conditional.WaitFrames(2).Do(OnAllScenesLoaded);
-            }
         }
 
-        public void OnAllScenesLoaded()
-        {
-            m_SceneControllersList = FindObjectsOfType<SceneController>().ToList();
-            m_PermanentSceneControllers = FindObjectsOfType<SceneController>().ToList();
-            m_SceneControllers = m_SceneControllersList.ToDictionary(act => act.gameObject.scene);
-
-            ChangeScene(m_InitialScene);
-
-            // var ctrl = m_SceneControllers[m_InitialScene.GetScene()];
-            // ctrl.SetActiveState(true);
-        }
 
         private void OnSceneChangeRequest(SceneChangeRequestEvent evt)
         {
             m_SerializationContext.Push();
 
-            bool changed = false;
-
-            changed = ChangeScene(evt.sceneId); 
-            
-            evt.result = changed ? EventResult.Positive : EventResult.Negative;
-        }
-        
-        public bool ActivateScene(SceneId id, bool enableLoading)
-        {
-            if (TogglePermanentSceneControllers(id))
-            {
-                return true;
-            }
-
-            StartLoadingScene(id, enableLoading);
-
-            return true;
+            OnSceneChange(evt.sceneId);
         }
 
-        private bool TogglePermanentSceneControllers(SceneId id)
+        private void OnSceneChange(SceneId sceneId)
         {
-            for (int i = 0; i < m_PermanentSceneControllers.Count; i++)
+            var oldScene = m_CurrentSceneId;
+            if (sceneId == SceneId.Game)
             {
-                var controller = m_PermanentSceneControllers[i];
+                SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Beat_Test", LoadSceneMode.Additive);
 
-                if (!controller.IsPermanent)
+                Conditional.Wait(1).Do(() =>
                 {
-                    continue;
-                }
-
-                if (controller.SceneId != id)
-                    controller.TogglePermanentScene(false);
-                else
+                    SceneManager.UnloadSceneAsync(oldScene.ToString());
+                });
+                m_CurrentSceneId = sceneId;
+            }
+            else
+            {
+                if (oldScene == SceneId.Game)
                 {
-                    //if the scene to activate is permanent scene, set it active and return
-                    controller.TogglePermanentScene(true);
-
-                    var sceneName = controller.SceneName;
-                    var sceneToLoad = SceneManager.GetSceneByName(sceneName);
-                    SceneManager.SetActiveScene(sceneToLoad);
-
-                    return true;
+                    SceneManager.UnloadSceneAsync("Game");
+                    SceneManager.UnloadSceneAsync("Beat_Test");
                 }
+                SceneManager.LoadScene(sceneId.ToString(), LoadSceneMode.Additive);
+
+                m_CurrentSceneId = sceneId;
             }
-
-            return false;
-        }
-
-        private void StartLoadingScene(SceneId id, bool loadingEnabled)
-        {
-            if (loadingEnabled)
-            {
-                m_NextSceneId = id;
-                StartCoroutine(EnableLoadingScene());
-
-                //unload previous temp scene
-                //Debug.Log($"Unload if there is a temp scene enabled : {m_CurrentTempSceneId.ToString()}");
-                m_SceneToUnload = m_CurrentTempSceneId;
-                StartCoroutine(UnLoadScene(m_SceneToUnload));
-            }
-
-            //Debug.Log( $"Next scene is  {id.ToString()} ");
-            //load requested temp scene
-            StartCoroutine(LoadScene(id, loadingEnabled));
-        }
-        
-        public IEnumerator EnableLoadingScene()
-        {
-            ActivateScene(SceneId.Loading, false);
-
-            yield return new WaitForSeconds(m_Settings.SceneTransitionDuration);
-
-            m_LoadingTimePassed = true;
-
-            while (!m_NextTempSceneLoaded)
-            {
-                yield return null;
-            }
-
-            //if (m_NextSceneLoaded && m_NextSceneActivated)
-            ActivateScene(m_NextSceneId, false);
-
-            m_NextTempSceneLoaded = false;
         }
         
         public IEnumerator LoadScene(SceneId sceneId, bool waitForLoadingScene)
@@ -219,18 +134,14 @@ namespace SceneManagement
             }
 
             yield return null;
-
-            //Debug.Log($"{sceneId.ToString()} scene is loaded and will be activated after loading time passes" );
-
+            
             yield return StartCoroutine(OnSceneLoaded(sceneId, waitForLoadingScene));
         }
 
         private IEnumerator OnSceneLoaded(SceneId sceneId, bool waitForLoadingScene)
         {
             m_NextTempSceneLoaded = true;
-
-            m_CurrentTempSceneId = sceneId;
-
+            
             if (waitForLoadingScene)
                 yield break;
 
@@ -250,7 +161,6 @@ namespace SceneManagement
                 var sceneToLoad = sceneId.GetScene();
                 if (!sceneToLoad.IsValid())
                 {
-                    //Debug.Log($"Current temp scene : {sceneName} is not loaded?");
                 }
                 else
                 {
@@ -265,47 +175,25 @@ namespace SceneManagement
                     SceneManager.UnloadSceneAsync(sceneToLoad);
 
                     yield return null;
-
-                    //Debug.Log($"Unloaded : {sceneId.ToString()}" );
                 }
             }
             else
             {
-                //Debug.Log("Scene ID cannot be \"None\", nothing to unload");
-
                 yield return null;
             }
         }
         
-        public bool ChangeScene(SceneId sceneId, bool animate = true)
+        public void ChangeScene(SceneId sceneId)
         {
-            m_Camera = Camera.main;
+            StartCoroutine(UnLoadScene(m_CurrentSceneId));
 
-            for (var i = 0; i < m_SceneChangeListeners.Count; i++)
-            {
-                var listener = m_SceneChangeListeners[i];
-                listener?.Invoke(m_CurrentSceneId);
-            }
+            LoadScene(sceneId, false);
 
-            bool success = ActivateScene(sceneId, true);
+            using var sceneChangedEvt = OnSceneChangeEvent.Get(sceneId, m_CurrentSceneId).SendGlobal();
+            m_CurrentSceneId = sceneId;
 
-            if (success)
-            {
-                using var sceneChangedEvt = OnSceneChangeEvent.Get(sceneId, m_CurrentSceneId).SendGlobal();
-                m_CurrentSceneId = sceneId;
-            }
-
-            return success;
         }
 
-        public void AddSceneChangeListener(Action<SceneId> action)
-        {
-            m_SceneChangeListeners.Add(action);
-        }
-
-        public void RemoveSceneChangeListener(Action<SceneId> action)
-        {
-            m_SceneChangeListeners.Remove(action);
-        }
+       
     }
 }
