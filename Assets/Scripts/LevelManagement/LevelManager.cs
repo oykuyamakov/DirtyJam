@@ -31,7 +31,7 @@ namespace LevelManagement
                 f1.SetTrigger("Fire");
             }
             
-            Conditional.Wait(0.2f).Do(() =>
+            Conditional.Wait(0.5f).Do(() =>
             {
                 foreach (var f2 in m_FireAnimators2)
                 {
@@ -39,7 +39,7 @@ namespace LevelManagement
                     f2.SetTrigger("Fire");
                 }
                 
-                Conditional.Wait(0.2f).Do(() =>
+                Conditional.Wait(0.5f).Do(() =>
                 {
                     foreach (var f3 in m_FireAnimators3)
                     {
@@ -47,7 +47,7 @@ namespace LevelManagement
                         f3.SetTrigger("Fire");
                     }
                     
-                    Conditional.Wait(0.2f).Do(() =>
+                    Conditional.Wait(0.5f).Do(() =>
                     {
                         foreach (var f4 in m_FireAnimators4)
                         {
@@ -55,28 +55,28 @@ namespace LevelManagement
                             f4.SetTrigger("Fire");
                         }
                         
-                        Conditional.Wait(0.2f).Do(() =>
+                        Conditional.Wait(0.5f).Do(() =>
                         {
                             foreach (var f1 in m_FireAnimators1)
                             {
                                 f1.gameObject.SetActive(false);
                             }
                             
-                            Conditional.Wait(0.2f).Do(() =>
+                            Conditional.Wait(0.5f).Do(() =>
                             {
                                 foreach (var f2 in m_FireAnimators2)
                                 {
                                     f2.gameObject.SetActive(false);
                                 }
                                 
-                                Conditional.Wait(0.2f).Do(() =>
+                                Conditional.Wait(0.5f).Do(() =>
                                 {
                                     foreach (var f3 in m_FireAnimators3)
                                     {
                                         f3.gameObject.SetActive(false);
                                     }
                                     
-                                    Conditional.Wait(0.2f).Do(() =>
+                                    Conditional.Wait(0.5f).Do(() =>
                                     {
                                         foreach (var f4 in m_FireAnimators4)
                                         {
