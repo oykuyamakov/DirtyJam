@@ -142,4 +142,9 @@ public class RootManager : MonoBehaviour
             SpawnRoot(BeatDirectionDictionary[m_Beat]);
         }
     }
+
+    private void OnDisable()
+    {
+        GEM.RemoveListener<OnBeatEvent>(OnBeat);
+    }
 }

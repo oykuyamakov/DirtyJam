@@ -68,7 +68,7 @@ namespace BeatStuff
                 var decimalPoint = Mathf.Repeat(beatData, 1.0f);
                 var wholePoint = beatData - (decimalPoint);
                 
-                var beat = wholePoint * 4 + (decimalPoint * 10);
+                var beat = wholePoint * 4 + (decimalPoint * 10) - 16;
 
                 beat = Mathf.Round(beat);
 

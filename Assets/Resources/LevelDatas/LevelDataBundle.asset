@@ -16,6 +16,5 @@ MonoBehaviour:
   MainSound: {fileID: 11400000, guid: 959e57149e782bc45ab0c421f23e7d7d, type: 2}
   MainSounds:
   - {fileID: 11400000, guid: 2b2a8d6bcc368cb4298505727b7b55e0, type: 2}
-  - {fileID: 11400000, guid: 8754cddf1d82a8c48893b4674166d942, type: 2}
   SoundBundle: {fileID: 11400000, guid: f3ffd277cebe4cc4d84a39be66f863c8, type: 2}
   BadSound: {fileID: 11400000, guid: 7a3fde23c12e3b447abb6e3d774a7ed0, type: 2}

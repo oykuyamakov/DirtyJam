@@ -32,7 +32,7 @@ namespace SceneManagement
         {
             return SceneManager.GetSceneByName(id.ToString());
         }
-        
+
         public static string GetName(this SceneId id)
         {
             return id.ToString();
@@ -54,7 +54,7 @@ namespace SceneManagement
         private SceneId m_SceneToUnload;
 
         private SerializationWizard m_SerializationContext;
-        
+
         private Conditional m_CameraDisableTimer;
 
         private bool m_NextTempSceneLoaded;
@@ -88,13 +88,17 @@ namespace SceneManagement
             var oldScene = m_CurrentSceneId;
             if (sceneId == SceneId.Game)
             {
-                SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-                SceneManager.LoadScene("Beat", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Game");
+                // SceneManager.LoadScene("Beat", LoadSceneMode.Additive);
 
                 Conditional.Wait(1).Do(() =>
                 {
-                    SceneManager.UnloadSceneAsync(oldScene.ToString());
+                    if (SceneManager.GetSceneByName(oldScene.ToString()).IsValid())
+                    {
+                        SceneManager.UnloadSceneAsync(oldScene.ToString());
+                    }
                 });
+
                 m_CurrentSceneId = sceneId;
             }
             else
@@ -102,22 +106,23 @@ namespace SceneManagement
                 if (oldScene == SceneId.Game)
                 {
                     SceneManager.UnloadSceneAsync("Game");
-                    SceneManager.UnloadSceneAsync("Beat");
+                    // SceneManager.UnloadSceneAsync("Beat");
                 }
+
                 SceneManager.LoadScene(sceneId.ToString(), LoadSceneMode.Additive);
 
                 m_CurrentSceneId = sceneId;
             }
         }
-        
+
         public IEnumerator LoadScene(SceneId sceneId, bool waitForLoadingScene)
         {
             var sceneToLoad = sceneId.GetScene();
-            
+
             if (sceneToLoad.IsValid())
             {
                 StartCoroutine(OnSceneLoaded(sceneId, waitForLoadingScene));
-                yield break; 
+                yield break;
             }
 
             yield return null;
@@ -134,14 +139,14 @@ namespace SceneManagement
             }
 
             yield return null;
-            
+
             yield return StartCoroutine(OnSceneLoaded(sceneId, waitForLoadingScene));
         }
 
         private IEnumerator OnSceneLoaded(SceneId sceneId, bool waitForLoadingScene)
         {
             m_NextTempSceneLoaded = true;
-            
+
             if (waitForLoadingScene)
                 yield break;
 
@@ -153,7 +158,7 @@ namespace SceneManagement
                 evt2.Controller.TogglePermanentScene(true);
             }
         }
-        
+
         public IEnumerator UnLoadScene(SceneId sceneId)
         {
             if (sceneId != SceneId.None)
@@ -182,7 +187,7 @@ namespace SceneManagement
                 yield return null;
             }
         }
-        
+
         public void ChangeScene(SceneId sceneId)
         {
             StartCoroutine(UnLoadScene(m_CurrentSceneId));
@@ -191,9 +196,6 @@ namespace SceneManagement
 
             using var sceneChangedEvt = OnSceneChangeEvent.Get(sceneId, m_CurrentSceneId).SendGlobal();
             m_CurrentSceneId = sceneId;
-
         }
-
-       
     }
 }
