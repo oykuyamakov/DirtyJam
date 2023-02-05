@@ -1,6 +1,7 @@
 using System;
 using BeatStuff.EventImplementations;
 using Events;
+using LevelManagement.EventImplementations;
 using PlayerImplementations.EventImplementations;
 using SettingImplementations;
 using UnityCommon.Modules;
@@ -29,7 +30,6 @@ namespace BeatStuff
         {
             if (index >= GeneralSettings.Get().GetCurrentBundle().MainSounds.Count)
             {
-                // TODO: level manager on win
                 using var evt = WinEvent.Get().SendGlobal();
                 return;
             }
@@ -37,6 +37,8 @@ namespace BeatStuff
             using var soundPlayEvent = SoundPlayEvent.Get(GeneralSettings.Get().m_StartSound);
             soundPlayEvent.SendGlobal();
 
+            using var beatChangeEvt = BeatChangeEvent.Get(index).SendGlobal();
+            
             var sound = GeneralSettings.Get().GetCurrentBundle().MainSounds[index];
             var clip = sound.Clip;
             m_AudioSource.clip = clip;

@@ -29,6 +29,7 @@ namespace UI
         private void OnDisable()
         {
             GEM.RemoveListener<WinEvent>(OnWinEvent);
+            m_Button.onClick.RemoveListener(OnButton);
         }
         
         private void OnWinEvent(WinEvent evt)
