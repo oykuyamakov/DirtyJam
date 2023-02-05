@@ -46,6 +46,7 @@ namespace SettingImplementations
         //public string InitialSaveName;
 
         public Sound m_UISelect;
+        public Sound m_StartSound;
         
         public float SceneTransitionDuration = 2f;
         

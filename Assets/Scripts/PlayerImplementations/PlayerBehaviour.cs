@@ -40,12 +40,12 @@ namespace PlayerImplementations
         
         private void Awake()
         {
-            m_GetInputAction = new TimedAction(GetInput, 0, 0.082f);
+            m_GetInputAction = new TimedAction(TryAttack, 0, 0.008f);
             
             m_PlayerData.Initialize();
         }
 
-        private void GetInput()
+        private void TryAttack()
         {
             if (!Attacked) 
                 return;
