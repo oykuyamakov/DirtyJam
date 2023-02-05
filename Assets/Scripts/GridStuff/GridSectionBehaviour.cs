@@ -17,6 +17,9 @@ namespace GridStuff
 
         [SerializeField]
         private SpriteRenderer m_SpriteRenderer;
+        
+        [SerializeField]
+        private Animator m_FireAnimator;
 
         private bool m_Entered;
         private DirectionName m_EnteredDirectionName;
@@ -52,11 +55,13 @@ namespace GridStuff
             if ((evt.AttackDirection | m_EnteredDirectionName) == m_EnteredDirectionName)
             {
                 evt.Success = true;
-                m_SpriteRenderer.DOFade(0.5f, 0.2f).SetLoops(3, LoopType.Yoyo)
-                    .OnComplete(() =>
-                    {
-                        m_SpriteRenderer.DOFade(0f, 0.05f);
-                    });
+                // m_SpriteRenderer.DOFade(0.5f, 0.2f).SetLoops(3, LoopType.Yoyo)
+                //     .OnComplete(() =>
+                //     {
+                //         m_SpriteRenderer.DOFade(0f, 0.05f);
+                //     });
+                
+                m_FireAnimator.SetTrigger("Fire");
                 
                 Conditional.WaitFrames(1)
                     .Do(() =>
