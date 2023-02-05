@@ -7,6 +7,7 @@ using Events;
 using Pooling;
 using RootStuff;
 using Sirenix.OdinInspector;
+using UnityCommon.Runtime.Extensions;
 using UnityCommon.Runtime.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,7 +16,10 @@ public class RootManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject m_RootPrefab;
-    
+
+    [SerializeField]
+    private List<GameObject> m_RootPrefabs = new List<GameObject>();
+
     [SerializeField]
     private Transform[] m_SpawnPoints = new Transform[8];
 
@@ -72,7 +76,12 @@ public class RootManager : MonoBehaviour
     [Button]
     public void SpawnRoot(DirectionName directionName)
     {
-        var root = RootPool.GetPoolable(m_RootPrefab, null).Get();
+        var randomRootEnumerator = m_RootPrefabs.RandomTake(1).GetEnumerator();
+        randomRootEnumerator.MoveNext();
+        var prefab = randomRootEnumerator.Current;
+        randomRootEnumerator.Dispose();
+        
+        var root = RootPool.GetPoolable(prefab, null).Get();
         root.transform.position = m_SpawnPositionDictionary[directionName];
         
         var moveToTheBeat = root.GetComponent<MoveToTheBeat>();

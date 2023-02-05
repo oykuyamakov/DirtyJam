@@ -70,12 +70,11 @@ namespace BeatStuff
                 
                 var beat = wholePoint * 4 + (decimalPoint * 10);
 
-                Debug.Log(beat + " " + directionName);
-                
+                beat = Mathf.Round(beat);
+
                 if (RootManager.BeatDirectionDictionary.ContainsKey(beat))
                 {
                     RootManager.BeatDirectionDictionary[beat] |= directionName;
-                    Debug.Log("Contained " + RootManager.BeatDirectionDictionary[beat]);
                 }
                 else
                 {
