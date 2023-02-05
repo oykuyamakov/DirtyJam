@@ -65,14 +65,17 @@ namespace BeatStuff
         {
             foreach (var beatData in beatDataList)
             {
-                var decimalPoint = Mathf.CeilToInt((beatData % 1f) * 10f);
-                var wholePoint = Mathf.CeilToInt(beatData - (decimalPoint / 10f));
+                var decimalPoint = Mathf.Repeat(beatData, 1.0f);
+                var wholePoint = beatData - (decimalPoint);
+                
+                var beat = wholePoint * 4 + (decimalPoint * 10);
 
-                var beat = wholePoint * 4 + decimalPoint;
-
+                Debug.Log(beat + " " + directionName);
+                
                 if (RootManager.BeatDirectionDictionary.ContainsKey(beat))
                 {
                     RootManager.BeatDirectionDictionary[beat] |= directionName;
+                    Debug.Log("Contained " + RootManager.BeatDirectionDictionary[beat]);
                 }
                 else
                 {

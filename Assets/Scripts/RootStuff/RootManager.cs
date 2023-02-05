@@ -21,7 +21,7 @@ public class RootManager : MonoBehaviour
 
     public static ObjectPool<Root> RootPool = new ObjectPool<Root>(50);
 
-    public static Dictionary<int, DirectionName> BeatDirectionDictionary;
+    public static Dictionary<float, DirectionName> BeatDirectionDictionary;
     
     private Dictionary<DirectionName, Vector3> m_SpawnPositionDictionary;
 
@@ -55,7 +55,7 @@ public class RootManager : MonoBehaviour
             [DirectionName.S | DirectionName.D] = new Vector3(-1, 1, 0),
         };
 
-        BeatDirectionDictionary = new Dictionary<int, DirectionName>();
+        BeatDirectionDictionary = new Dictionary<float, DirectionName>();
 
         LevelCreator.GetBeatData(LevelCreator.W, DirectionName.W);
         LevelCreator.GetBeatData(LevelCreator.A, DirectionName.A);
@@ -124,13 +124,12 @@ public class RootManager : MonoBehaviour
     {
         if(evt.Steps != 1f)
             return;
-
+        
         // RandomlySpawnRoots();
         m_Beat++;
 
         if (BeatDirectionDictionary.ContainsKey(m_Beat))
         {
-            Debug.Log(m_Beat);
             SpawnRoot(BeatDirectionDictionary[m_Beat]);
         }
     }
