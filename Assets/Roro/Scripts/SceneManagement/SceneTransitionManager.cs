@@ -89,7 +89,7 @@ namespace SceneManagement
             if (sceneId == SceneId.Game)
             {
                 SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-                SceneManager.LoadScene("Beat_Test", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Beat", LoadSceneMode.Additive);
 
                 Conditional.Wait(1).Do(() =>
                 {
@@ -102,7 +102,7 @@ namespace SceneManagement
                 if (oldScene == SceneId.Game)
                 {
                     SceneManager.UnloadSceneAsync("Game");
-                    SceneManager.UnloadSceneAsync("Beat_Test");
+                    SceneManager.UnloadSceneAsync("Beat");
                 }
                 SceneManager.LoadScene(sceneId.ToString(), LoadSceneMode.Additive);
 
