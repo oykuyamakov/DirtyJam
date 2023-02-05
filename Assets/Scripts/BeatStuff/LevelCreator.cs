@@ -26,6 +26,7 @@ namespace BeatStuff
         
         public static List<float> W = new List<float>
         {
+            6.2f,
             6.4f,
             7.2f,
             7.4f,
@@ -68,18 +69,15 @@ namespace BeatStuff
                 var decimalPoint = Mathf.Repeat(beatData, 1.0f);
                 var wholePoint = beatData - (decimalPoint);
                 
-                var beat = wholePoint * 4 + (decimalPoint * 10);
-
-                Debug.Log(beat + " " + directionName);
+                var beat = (wholePoint * 4) + (decimalPoint * 10) - 16;
                 
-                if (RootManager.BeatDirectionDictionary.ContainsKey(beat))
+                if (RootManager.BeatDirectionDictionary.ContainsKey(Mathf.Round(beat)))
                 {
-                    RootManager.BeatDirectionDictionary[beat] |= directionName;
-                    Debug.Log("Contained " + RootManager.BeatDirectionDictionary[beat]);
+                    RootManager.BeatDirectionDictionary[Mathf.Round(beat)] |= directionName;
                 }
                 else
                 {
-                    RootManager.BeatDirectionDictionary.Add(beat, directionName);
+                    RootManager.BeatDirectionDictionary.Add(Mathf.Round(beat), directionName);
                 }
             }
         }
