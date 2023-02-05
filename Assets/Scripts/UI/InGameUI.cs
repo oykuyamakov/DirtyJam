@@ -16,6 +16,8 @@ namespace UI
         
         [SerializeField]
         private List<Image> m_HealthImages = new List<Image>();
+        [SerializeField]
+        private List<Image> m_HealthImages2 = new List<Image>();
 
         private int Index;
 
@@ -25,6 +27,7 @@ namespace UI
                 return;
             
             m_HealthImages[Index].DOFade(0, 0.2f);
+            m_HealthImages2[Index].DOFade(0, 0.2f);
             Index++;
         }
 
